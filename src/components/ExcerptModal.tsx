@@ -44,7 +44,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
     {
       pageNumber: 1,
       isCover: true,
-      chapterTitle: 'OFFICIAL BOOK COVER',
+      chapterTitle: 'BOOK COVER',
       content: []
     },
     {
@@ -145,7 +145,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
       setIsSpeaking(false);
     } else {
       const textToRead = currentPageData.isCover 
-        ? `${book.title}. ${book.subtitle}. By ${book.author}. Official Cover.`
+        ? `${book.title}. ${book.subtitle}. By ${book.author}. Cover.`
         : `${currentPageData.chapterTitle}. ${currentPageData.content.join(' ')}`;
       const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.rate = 0.92;
@@ -181,7 +181,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
             <div className="flex items-center gap-2">
               <BookOpen className={`w-4 h-4 ${currentTheme.accent}`} />
               <span className="font-serif-title font-bold text-sm sm:text-base">
-                {currentPageData.isCover ? 'Official Cover Preview' : 'Digital Chapter Reader'}
+                {currentPageData.isCover ? 'Cover Preview' : 'Digital Chapter Reader'}
               </span>
             </div>
 
@@ -303,10 +303,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
                     className="w-full h-full object-cover object-center filter contrast-[1.03]"
                   />
                   
-                  <div className="absolute bottom-3 right-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-sans-body text-[10px] font-extrabold tracking-wider px-2.5 py-1 rounded-full shadow-lg border border-amber-200 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-slate-950" />
-                    <span>Official Cover</span>
-                  </div>
+
                 </div>
               </div>
 
@@ -400,7 +397,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
 
             <div className="flex items-center gap-2">
               <span className="font-serif text-sm font-bold">
-                {page === 1 ? 'Page 1 of 5 (Official Cover)' : `Page ${page} of ${pages.length}`}
+                {page === 1 ? 'Page 1 of 5 (Book Cover)' : `Page ${page} of ${pages.length}`}
               </span>
               {bookmarkedPages.includes(page) && (
                 <span className="text-[10px] bg-amber-500 text-slate-950 font-sans font-bold px-2 py-0.5 rounded-full">

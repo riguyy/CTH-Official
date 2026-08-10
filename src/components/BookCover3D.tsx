@@ -121,11 +121,7 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
               </div>
             </div>
 
-            {/* Floating Gold Foil Accent Badge */}
-            <div className="absolute bottom-4 right-4 z-30 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-sans-body text-[10px] font-extrabold tracking-wider px-3 py-1 rounded-full shadow-xl border border-amber-200 flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-slate-950" />
-              <span>Official Cover</span>
-            </div>
+
           </div>
         </div>
       </div>
