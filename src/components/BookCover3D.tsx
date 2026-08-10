@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { RefreshCw, Sparkles, BookOpen } from 'lucide-react';
+import { Sparkles, BookOpen } from 'lucide-react';
 
 interface BookCover3DProps {
   coverUrl?: string;
@@ -20,7 +20,6 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
   onClick,
   showSpine = true,
 }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const [glarePos, setGlarePos] = useState({ x: 50, y: 50, opacity: 0 });
@@ -58,11 +57,6 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
     setGlarePos(prev => ({ ...prev, opacity: 0 }));
   };
 
-  const toggleFlip = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsFlipped(!isFlipped);
-  };
-
   return (
     <div className="flex flex-col items-center">
       <div 
@@ -81,15 +75,12 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
           className="relative w-full h-full transition-transform duration-500 ease-out transform-gpu"
           style={{
             transformStyle: 'preserve-3d',
-            transform: isFlipped 
-              ? `rotateY(180deg) rotateX(${rotateX * 0.5}deg)`
-              : `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+            transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
           }}
         >
-          {/* ================= FRONT COVER ================= */}
+          {/* ================= FRONT COVER ONLY ================= */}
           <div 
             className="absolute inset-0 w-full h-full rounded-r-xl rounded-l-sm bg-slate-900 overflow-hidden shadow-2xl border border-amber-500/30 text-white"
-            style={{ backfaceVisibility: 'hidden' }}
           >
             {/* Book Cover Artwork Image */}
             <img 
@@ -127,73 +118,17 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
               <span>Official Cover</span>
             </div>
           </div>
-
-          {/* ================= BACK COVER ================= */}
-          <div 
-            className="absolute inset-0 w-full h-full rounded-l-xl rounded-r-sm bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950/90 border border-amber-400/40 shadow-2xl p-6 flex flex-col justify-between text-amber-50"
-            style={{ 
-              backfaceVisibility: 'hidden',
-              transform: 'rotateY(180deg)'
-            }}
-          >
-            {/* Header / Synopsis */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between border-b border-amber-400/20 pb-2">
-                <span className="text-[10px] font-serif uppercase tracking-[0.2em] text-amber-300">Back Cover Synopsis</span>
-                <span className="text-xs text-amber-400 font-bold">ISBN 978-1-63988-123-4</span>
-              </div>
-
-              <h4 className="font-serif-title text-lg font-bold text-amber-100 leading-snug">
-                {title}
-              </h4>
-
-              <p className="font-sans-body text-[11px] text-slate-300 leading-relaxed line-clamp-6">
-                A raw and deeply personal memoir of survival, resilience, and the unbreakable human spirit. Through the depths of trauma and heartbreak, Jacqueline Eye shares her journey of finding the courage to keep going—one step at a time.
-              </p>
-
-              <blockquote className="italic font-serif text-xs text-amber-200 bg-amber-500/10 p-2.5 rounded-lg border-l-2 border-amber-400">
-                "For anyone who has ever felt lost: Healing is possible. You are not alone."
-              </blockquote>
-            </div>
-
-            {/* Barcode & Publisher Details */}
-            <div className="pt-3 border-t border-amber-400/20 flex items-end justify-between">
-              <div className="text-[9px] font-mono text-slate-400">
-                <p className="text-amber-300 font-sans font-bold uppercase">{author}</p>
-                <p>Non-Fiction • Memoir • Healing</p>
-              </div>
-
-              {/* Simulated Barcode */}
-              <div className="bg-white p-1.5 rounded border border-slate-300 flex flex-col items-center">
-                <div className="flex gap-[1.5px] h-6 items-center">
-                  {[3, 1, 2, 4, 1, 3, 2, 1, 4, 2, 1, 3, 1, 2].map((w, i) => (
-                    <div key={i} className="bg-slate-900 h-full" style={{ width: `${w}px` }} />
-                  ))}
-                </div>
-                <span className="text-[7px] text-slate-900 font-mono tracking-tighter mt-0.5">9781639881234</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Flip Cover Interactive Control Button */}
+      {/* Interactive Control Button */}
       <div className="mt-4 flex items-center gap-3">
         <button
-          onClick={toggleFlip}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 hover:bg-slate-900 text-amber-200 border border-amber-400/30 hover:border-amber-400/60 text-xs font-sans-body transition-all shadow-sm"
-          title="Flip 3D Book Cover"
-        >
-          <RefreshCw className="w-3.5 h-3.5 text-amber-400" />
-          <span>{isFlipped ? 'View Front Cover' : 'View Back Cover'}</span>
-        </button>
-
-        <button
           onClick={onClick}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/30 text-xs font-sans-body transition-all"
+          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-900 text-amber-200 border border-amber-400/40 hover:border-amber-400/80 text-xs font-sans-body font-semibold transition-all shadow-md hover:shadow-amber-500/10"
         >
           <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-          <span>Read Preview</span>
+          <span>Read Chapter 1 Preview</span>
         </button>
       </div>
     </div>

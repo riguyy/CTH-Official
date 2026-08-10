@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, BookOpen, ChevronLeft, ChevronRight, ShoppingBag, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, BookOpen, ChevronLeft, ChevronRight, ShoppingBag, Pause, Play, Bookmark } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface ExcerptModalProps {
@@ -16,15 +16,19 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
   onBuyClick,
 }) => {
   const [fontSize, setFontSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const [readerTheme, setReaderTheme] = useState<'day' | 'sepia' | 'dark' | 'sunset'>('sepia');
   const [page, setPage] = useState(1);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [bookmarkedPages, setBookmarkedPages] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!isOpen && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  }, [isOpen, page]);
 
   if (!isOpen) return null;
-
-  const fontClasses = {
-    sm: 'text-sm leading-relaxed',
-    md: 'text-base leading-relaxed sm:text-lg',
-    lg: 'text-lg leading-relaxed sm:text-xl',
-  };
 
   const pages = [
     {
@@ -82,120 +86,274 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
 
   const currentPageData = pages.find(p => p.pageNumber === page) || pages[0];
 
+  const fontClasses = {
+    sm: 'text-sm leading-relaxed space-y-3',
+    md: 'text-base sm:text-lg leading-relaxed space-y-4',
+    lg: 'text-lg sm:text-xl leading-relaxed space-y-5',
+  };
+
+  const themeStyles = {
+    day: {
+      bg: 'bg-slate-50 text-slate-900 border-slate-300',
+      accent: 'text-amber-800',
+      quoteBg: 'bg-slate-200/60 text-slate-800 border-slate-400',
+    },
+    sepia: {
+      bg: 'bg-[#FAF5E8] text-[#332A1E] border-[#E8D9BF]',
+      accent: 'text-[#8C5E26]',
+      quoteBg: 'bg-[#F2E5CD] text-[#2C2216] border-[#D4C19C]',
+    },
+    dark: {
+      bg: 'bg-[#12161F] text-slate-200 border-slate-800',
+      accent: 'text-amber-400',
+      quoteBg: 'bg-slate-900 text-amber-100 border-amber-500/30',
+    },
+    sunset: {
+      bg: 'bg-[#1C1318] text-amber-100 border-amber-900/40',
+      accent: 'text-amber-300',
+      quoteBg: 'bg-amber-950/80 text-amber-200 border-amber-600/40',
+    },
+  };
+
+  const currentTheme = themeStyles[readerTheme];
+
+  const toggleSpeech = () => {
+    if (!('speechSynthesis' in window)) return;
+
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    } else {
+      const fullText = `${currentPageData.chapterTitle}. ${currentPageData.content.join(' ')}`;
+      const utterance = new SpeechSynthesisUtterance(fullText);
+      utterance.rate = 0.92;
+      utterance.pitch = 1.0;
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      setIsSpeaking(true);
+    }
+  };
+
+  const toggleBookmark = () => {
+    if (bookmarkedPages.includes(page)) {
+      setBookmarkedPages(bookmarkedPages.filter(p => p !== page));
+    } else {
+      setBookmarkedPages([...bookmarkedPages, page]);
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       
-      {/* Modal Box */}
-      <div className="bg-[#FAF7F0] text-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-10 shadow-2xl border border-amber-300/80 relative flex flex-col justify-between min-h-[580px] animate-fadeIn">
+      {/* Reader Modal Container */}
+      <div className={`rounded-3xl max-w-3xl w-full p-6 sm:p-10 shadow-2xl border relative flex flex-col justify-between min-h-[620px] transition-all duration-300 ${currentTheme.bg}`}>
         
-        {/* Top Control Bar */}
         <div>
-          <div className="flex items-center justify-between pb-4 border-b border-amber-900/10 mb-6">
+          {/* Reader Control Header */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-current/15 mb-6">
+            
+            {/* Title Badge */}
             <div className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-amber-700" />
-              <span className="font-serif-title font-bold text-sm text-slate-900">
-                Chapter Excerpt Preview
+              <BookOpen className={`w-4 h-4 ${currentTheme.accent}`} />
+              <span className="font-serif-title font-bold text-sm sm:text-base">
+                Digital Excerpt Reader
               </span>
             </div>
 
-            {/* Font Adjuster & Close */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1 bg-amber-100/60 p-1 rounded-lg border border-amber-200 text-xs font-sans-body">
+            {/* Reader Customizers */}
+            <div className="flex items-center flex-wrap gap-2 sm:gap-3">
+              
+              {/* Theme Switcher */}
+              <div className="flex items-center gap-1 bg-black/10 dark:bg-white/10 p-1 rounded-xl">
+                <button
+                  onClick={() => setReaderTheme('day')}
+                  className={`px-2 py-1 text-[11px] rounded-lg font-bold transition-all ${readerTheme === 'day' ? 'bg-white text-slate-900 shadow-xs' : 'opacity-60'}`}
+                  title="Warm Daylight Theme"
+                >
+                  Day
+                </button>
+                <button
+                  onClick={() => setReaderTheme('sepia')}
+                  className={`px-2 py-1 text-[11px] rounded-lg font-bold transition-all ${readerTheme === 'sepia' ? 'bg-[#EBDCBE] text-[#3E2D1A] shadow-xs' : 'opacity-60'}`}
+                  title="Sepia Parchment Theme"
+                >
+                  Sepia
+                </button>
+                <button
+                  onClick={() => setReaderTheme('dark')}
+                  className={`px-2 py-1 text-[11px] rounded-lg font-bold transition-all ${readerTheme === 'dark' ? 'bg-slate-800 text-amber-300 shadow-xs' : 'opacity-60'}`}
+                  title="Dark Velvet Theme"
+                >
+                  Dark
+                </button>
+                <button
+                  onClick={() => setReaderTheme('sunset')}
+                  className={`px-2 py-1 text-[11px] rounded-lg font-bold transition-all ${readerTheme === 'sunset' ? 'bg-amber-900 text-amber-200 shadow-xs' : 'opacity-60'}`}
+                  title="Sunset Glow Theme"
+                >
+                  Sunset
+                </button>
+              </div>
+
+              {/* Font Size Selector */}
+              <div className="flex items-center gap-1 bg-black/10 dark:bg-white/10 p-1 rounded-xl text-xs font-sans-body">
                 <button
                   onClick={() => setFontSize('sm')}
-                  className={`px-2 py-0.5 rounded ${fontSize === 'sm' ? 'bg-amber-700 text-white font-bold' : 'text-amber-900'}`}
+                  className={`px-2 py-0.5 rounded-lg ${fontSize === 'sm' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
                 >
                   A-
                 </button>
                 <button
                   onClick={() => setFontSize('md')}
-                  className={`px-2 py-0.5 rounded ${fontSize === 'md' ? 'bg-amber-700 text-white font-bold' : 'text-amber-900'}`}
+                  className={`px-2 py-0.5 rounded-lg ${fontSize === 'md' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
                 >
                   A
                 </button>
                 <button
                   onClick={() => setFontSize('lg')}
-                  className={`px-2 py-0.5 rounded ${fontSize === 'lg' ? 'bg-amber-700 text-white font-bold' : 'text-amber-900'}`}
+                  className={`px-2 py-0.5 rounded-lg ${fontSize === 'lg' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
                 >
                   A+
                 </button>
               </div>
 
+              {/* Speech Audio Narrator */}
+              {'speechSynthesis' in window && (
+                <button
+                  onClick={toggleSpeech}
+                  className={`px-2.5 py-1.5 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition-all ${
+                    isSpeaking 
+                      ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold' 
+                      : 'bg-black/10 hover:bg-black/20 border-current/20'
+                  }`}
+                  title={isSpeaking ? 'Pause Speech Narration' : 'Listen to Chapter 1 Narration'}
+                >
+                  {isSpeaking ? <Pause className="w-3.5 h-3.5 animate-pulse" /> : <Play className="w-3.5 h-3.5" />}
+                  <span className="hidden sm:inline">{isSpeaking ? 'Pause Audio' : 'Listen'}</span>
+                </button>
+              )}
+
+              {/* Bookmark Toggle */}
               <button
-                onClick={onClose}
-                className="p-1.5 rounded-full hover:bg-amber-200/60 text-slate-700 transition-colors"
-                title="Close Excerpt Modal"
+                onClick={toggleBookmark}
+                className={`p-1.5 rounded-xl border transition-all ${
+                  bookmarkedPages.includes(page)
+                    ? 'bg-amber-500 text-slate-950 border-amber-400'
+                    : 'bg-black/10 hover:bg-black/20 border-current/20'
+                }`}
+                title={bookmarkedPages.includes(page) ? 'Remove Bookmark' : 'Bookmark This Page'}
+              >
+                <Bookmark className="w-4 h-4" />
+              </button>
+
+              {/* Close Button */}
+              <button
+                onClick={() => {
+                  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                  onClose();
+                }}
+                className="p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+                title="Close Reader"
               >
                 <X className="w-5 h-5" />
               </button>
+
             </div>
           </div>
 
-          {/* Chapter Heading */}
-          <div className="text-center space-y-1 mb-6">
-            <span className="text-[10px] font-sans-body uppercase tracking-[0.25em] text-amber-800 font-bold">
-              Climbing Toward Healing
+          {/* Chapter Title & Byline */}
+          <div className="text-center space-y-1 mb-8">
+            <span className={`text-[10px] font-sans-body uppercase tracking-[0.25em] font-bold ${currentTheme.accent}`}>
+              {book.title}
             </span>
-            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold text-slate-900">
+            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold tracking-tight">
               {currentPageData.chapterTitle}
             </h3>
-            <p className="text-xs text-amber-700 font-serif italic">
-              By Jacqueline Eye
+            <p className="text-xs font-serif italic opacity-80">
+              By {book.author}
             </p>
           </div>
 
-          {/* Book Content Paragraphs */}
-          <div className={`font-serif text-slate-800 space-y-4 ${fontClasses[fontSize]}`}>
+          {/* Book Excerpt Text */}
+          <div className={`font-serif ${fontClasses[fontSize]}`}>
             {currentPageData.content.map((paragraph, idx) => (
-              <p key={idx} className="indent-4 leading-relaxed">
+              <p key={idx} className="indent-6 leading-relaxed">
                 {paragraph}
               </p>
             ))}
           </div>
+
         </div>
 
-        {/* Footer & Page Switcher */}
-        <div className="pt-6 border-t border-amber-900/10 mt-8 space-y-4">
+        {/* Footer Navigation & Amazon CTA */}
+        <div className="pt-6 border-t border-current/15 mt-8 space-y-4">
           
-          <div className="flex items-center justify-between text-xs text-slate-600 font-sans-body">
+          {/* Page Switcher */}
+          <div className="flex items-center justify-between text-xs font-sans-body font-semibold">
             <button
               disabled={page === 1}
-              onClick={() => setPage(page - 1)}
-              className={`flex items-center gap-1 font-semibold ${page === 1 ? 'opacity-40 cursor-not-allowed' : 'hover:text-amber-800'}`}
+              onClick={() => {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                setPage(page - 1);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-current/20 ${
+                page === 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-black/10 dark:hover:bg-white/10'
+              }`}
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous Page</span>
             </button>
 
-            <span className="font-serif text-amber-900 font-bold">
-              Page {page} of {pages.length}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-serif text-sm font-bold">
+                Page {page} of {pages.length}
+              </span>
+              {bookmarkedPages.includes(page) && (
+                <span className="text-[10px] bg-amber-500 text-slate-950 font-sans font-bold px-2 py-0.5 rounded-full">
+                  Bookmarked
+                </span>
+              )}
+            </div>
 
             <button
               disabled={page === pages.length}
-              onClick={() => setPage(page + 1)}
-              className={`flex items-center gap-1 font-semibold ${page === pages.length ? 'opacity-40 cursor-not-allowed' : 'hover:text-amber-800'}`}
+              onClick={() => {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                setPage(page + 1);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-current/20 ${
+                page === pages.length ? 'opacity-30 cursor-not-allowed' : 'hover:bg-black/10 dark:hover:bg-white/10'
+              }`}
             >
               <span>Next Page</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Buy CTA */}
-          <div className="bg-amber-100/70 p-4 rounded-2xl border border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-amber-900 font-sans-body font-medium text-center sm:text-left">
-              Enjoying this preview? Read the full story on Amazon.
-            </p>
+          {/* Amazon Order Banner */}
+          <div className={`p-4 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-3 ${currentTheme.quoteBg}`}>
+            <div className="text-center sm:text-left">
+              <p className="text-xs font-bold font-sans-body">
+                Ready to read the full story of survival and transformation?
+              </p>
+              <p className="text-[11px] opacity-80 font-serif italic mt-0.5">
+                Available in Kindle eBook, Paperback, and Hardcover on Amazon.
+              </p>
+            </div>
 
             <button
               onClick={() => {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
                 onClose();
                 onBuyClick();
               }}
-              className="px-5 py-2.5 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-sans-body text-xs font-bold shadow-md shrink-0 flex items-center gap-1.5"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-xs font-extrabold shadow-md shrink-0 flex items-center gap-2 border border-amber-300"
             >
-              <ShoppingBag className="w-3.5 h-3.5" />
-              <span>Buy Full Book</span>
+              <ShoppingBag className="w-4 h-4 text-slate-950" />
+              <span>Buy Full Memoir on Amazon</span>
             </button>
           </div>
 
