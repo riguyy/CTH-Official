@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-serif-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .font-script {
+    font-family: 'Great Vibes', cursive;
+  }
+  .font-sans-body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom smooth transitions and animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom 3D book shadow effect */
+.book-shadow {
+  box-shadow: 
+    -10px 15px 30px -5px rgba(15, 23, 42, 0.4),
+    -2px 2px 10px 0px rgba(15, 23, 42, 0.2),
+    0px 0px 1px 1px rgba(255, 255, 255, 0.2) inset;
+}
+

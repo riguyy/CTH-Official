@@ -1,0 +1,146 @@
+import React from 'react';
+import { BookCover3D } from './BookCover3D';
+import { ShoppingBag, BookOpen, Heart, Sparkles, MapPin, Award, ArrowDown } from 'lucide-react';
+import { BookDetails } from '../types';
+
+interface HeroSectionProps {
+  book: BookDetails;
+  onBuyClick: () => void;
+  onReadPreviewClick: () => void;
+}
+
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  book,
+  onBuyClick,
+  onReadPreviewClick,
+}) => {
+  return (
+    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-950 text-white">
+      
+      {/* Background Golden Sunset & Mountain Range Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={book.mountainBgImage} 
+          alt="Mountain Sunset Pathway" 
+          className="w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.1] scale-105"
+        />
+        {/* Gradients for depth and legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/80" />
+        <div className="absolute inset-0 bg-radial-at-c from-amber-500/10 via-transparent to-slate-950/90" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center py-8">
+        
+        {/* Left Column: Headline, Intro, CTAs */}
+        <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+          
+          {/* Times Square Billboard Announcement Badge */}
+          <a 
+            href="#times-square"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-amber-200 text-xs font-sans-body font-medium transition-all hover:bg-amber-500/30 hover:border-amber-400/50"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+            <span>Featured on Times Square Billboard NYC</span>
+            <span className="text-amber-300 font-serif">→</span>
+          </a>
+
+          {/* Main Title */}
+          <div className="space-y-2">
+            <span className="text-amber-400/90 font-serif-title text-sm sm:text-base tracking-[0.25em] uppercase font-semibold">
+              Official Memoir Release
+            </span>
+            <h1 className="font-serif-title text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-amber-50 leading-[1.08] drop-shadow-lg">
+              Climbing Toward <br className="hidden sm:inline" />
+              <span className="font-script text-5xl sm:text-7xl lg:text-8xl text-amber-300 font-normal inline-block ml-1 sm:ml-2">
+                Healing
+              </span>
+            </h1>
+          </div>
+
+          {/* Subtitle & Tagline */}
+          <p className="font-serif-title italic text-xl sm:text-2xl text-amber-200/90 max-w-2xl font-normal leading-relaxed">
+            "{book.subtitle}"
+          </p>
+
+          {/* Short Introduction Paragraph */}
+          <p className="font-sans-body text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed text-slate-200/90">
+            A raw and deeply personal memoir of survival, resilience, and the unbreakable human spirit. 
+            Through the depths of trauma, heartbreak, and unimaginable pain, Jacqueline Eye shares her journey 
+            of finding the courage to keep going—one step at a time.
+          </p>
+
+          {/* Key Motifs / Highlights */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-1 text-xs text-amber-200/80 font-sans-body">
+            <span className="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-amber-400/20">
+              <Heart className="w-3.5 h-3.5 text-amber-400" />
+              <span>Real & Vulnerable</span>
+            </span>
+            <span className="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-amber-400/20">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Message of Hope</span>
+            </span>
+            <span className="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-amber-400/20">
+              <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+              <span>Available on Amazon</span>
+            </span>
+          </div>
+
+          {/* Call to Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
+            <button
+              id="hero-buy-button"
+              onClick={onBuyClick}
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 border border-amber-300"
+            >
+              <ShoppingBag className="w-4 h-4 text-slate-950" />
+              <span>Buy the Book on Amazon</span>
+            </button>
+
+            <button
+              id="hero-preview-button"
+              onClick={onReadPreviewClick}
+              className="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-900/80 hover:bg-slate-900 text-amber-100 font-sans-body text-sm font-semibold border border-amber-400/30 hover:border-amber-400/60 transition-all flex items-center justify-center gap-2"
+            >
+              <BookOpen className="w-4 h-4 text-amber-400" />
+              <span>Read Sample Excerpt</span>
+            </button>
+          </div>
+
+          {/* Author Byline */}
+          <p className="text-xs text-amber-300/80 font-serif tracking-widest pt-2">
+            BY AUTHOR <strong className="text-amber-100 uppercase tracking-[0.2em]">{book.author}</strong>
+          </p>
+
+        </div>
+
+        {/* Right Column: Prominent 3D Book Cover Artwork */}
+        <div className="lg:col-span-5 flex flex-col items-center justify-center">
+          <div className="relative">
+            <BookCover3D
+              coverUrl={book.coverImage}
+              title={book.title}
+              author={book.author}
+              subtitle={book.subtitle}
+              size="lg"
+              onClick={onReadPreviewClick}
+            />
+
+            {/* Click to Preview Overlay hint */}
+            <p className="text-center text-xs text-amber-300/70 font-sans-body mt-6 flex items-center justify-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+              <span>Click book cover to read Chapter 1 preview</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Down Indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1 text-amber-300/50 text-[10px] uppercase tracking-widest animate-bounce">
+        <span>Scroll to Explore</span>
+        <ArrowDown className="w-3.5 h-3.5" />
+      </div>
+
+    </section>
+  );
+};

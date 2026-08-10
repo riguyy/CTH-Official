@@ -1,0 +1,6 @@
+{
+  "name": "Climbing Toward Healing - Official Book Website",
+  "description": "Official website for 'Climbing Toward Healing' by Jacqueline Eye. A journey of survival, strength, hope, and finding light after darkness.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
