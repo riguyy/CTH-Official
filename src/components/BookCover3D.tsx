@@ -112,14 +112,24 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
               }}
             />
 
-            {/* Hover Action Ribbon */}
-            <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-center justify-center p-4 text-center backdrop-blur-[2px]">
-              <div className="px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-sans-body text-xs font-extrabold shadow-2xl flex items-center gap-2 border border-amber-200 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <BookOpen className="w-4 h-4 text-slate-950" />
-                <span>Click to Open Chapter 1</span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+            {/* Prominent Centered Disclaimer & Preview Button Badge */}
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onClick) onClick();
+              }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[88%] z-30 bg-slate-950/90 hover:bg-amber-500 text-amber-200 hover:text-slate-950 transition-all duration-300 font-sans-body text-xs sm:text-sm font-extrabold tracking-wide px-4 py-3 rounded-2xl shadow-2xl border-2 border-amber-400/70 hover:border-amber-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group/btn backdrop-blur-md text-center"
+              title="Click photo to read Chapter 1 preview"
+            >
+              <div className="flex items-center justify-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-amber-400 group-hover/btn:text-slate-950 shrink-0" />
+                <span>This is not the Official Cover</span>
               </div>
-            </div>
+              <div className="flex items-center justify-center gap-1 text-[11px] sm:text-xs text-amber-300 group-hover/btn:text-slate-950 font-bold border-t border-amber-400/30 pt-1 w-full">
+                <span>Click to Read Preview</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
+              </div>
+            </button>
 
 
           </div>

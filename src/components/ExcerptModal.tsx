@@ -293,19 +293,34 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
             /* ================= PAGE 1: OFFICIAL BOOK COVER ================= */
             <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-8 my-2">
               
-              {/* Cover Artwork Card */}
-              <div className="relative group shrink-0">
-                <div className="absolute -inset-3 bg-gradient-to-tr from-amber-500/40 via-amber-300/20 to-amber-600/30 rounded-2xl blur-xl" />
-                <div className="relative w-56 sm:w-64 h-[380px] sm:h-[430px] rounded-xl overflow-hidden shadow-2xl border-2 border-amber-400/40 bg-slate-900">
+              {/* Cover Artwork Card - Clickable Button to Read Preview */}
+              <button 
+                onClick={() => setPage(2)}
+                className="relative group shrink-0 text-left cursor-pointer focus:outline-hidden"
+                title="Click photo to read Chapter 1 preview"
+              >
+                <div className="absolute -inset-3 bg-gradient-to-tr from-amber-500/40 via-amber-300/20 to-amber-600/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
+                <div className="relative w-56 sm:w-64 h-[380px] sm:h-[430px] rounded-xl overflow-hidden shadow-2xl border-2 border-amber-400/40 group-hover:border-amber-400/80 bg-slate-900 transition-all">
                   <img 
                     src={book.coverImage} 
                     alt={book.title} 
-                    className="w-full h-full object-cover object-center filter contrast-[1.03]"
+                    className="w-full h-full object-cover object-center filter contrast-[1.03] group-hover:scale-105 transition-transform duration-500"
                   />
                   
+                  {/* Prominent Centered Disclaimer & Preview Button Badge */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[88%] bg-slate-950/90 group-hover:bg-amber-500 text-amber-200 group-hover:text-slate-950 font-sans-body text-xs font-extrabold tracking-wide px-3.5 py-3 rounded-2xl shadow-xl border-2 border-amber-400/60 group-hover:border-amber-300 flex flex-col items-center justify-center gap-1.5 transition-all text-center backdrop-blur-md">
+                    <div className="flex items-center justify-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-amber-400 group-hover:text-slate-950 shrink-0" />
+                      <span>This is not the Official Cover</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-1 text-[11px] text-amber-300 group-hover:text-slate-950 font-bold border-t border-amber-400/30 pt-1 w-full">
+                      <span>Click to Read Preview</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
 
                 </div>
-              </div>
+              </button>
 
               {/* Cover Details & Start Reading CTA */}
               <div className="flex flex-col justify-between space-y-4 text-center md:text-left flex-1">
