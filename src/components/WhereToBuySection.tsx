@@ -31,7 +31,7 @@ export const WhereToBuySection: React.FC<WhereToBuySectionProps> = ({
       desc: 'Beautiful tactile softcover with premium matte finish',
       badge: 'Bestseller',
       icon: ShoppingBag,
-      price: '$16.99',
+      price: '$19.99',
       url: book.buyLinks.amazonPaperback,
     },
     {
@@ -39,7 +39,7 @@ export const WhereToBuySection: React.FC<WhereToBuySectionProps> = ({
       desc: 'Durable hardcover edition for your home library',
       badge: 'Premium Edition',
       icon: Sparkles,
-      price: '$24.99',
+      price: '$29.99',
       url: book.buyLinks.amazonHardcover,
     },
   ];
