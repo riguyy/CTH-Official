@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, BookOpen, ChevronLeft, ChevronRight, ShoppingBag, Pause, Play, Bookmark } from 'lucide-react';
+import { X, BookOpen, ChevronLeft, ChevronRight, ShoppingBag, Pause, Play, Bookmark, Sparkles, ArrowRight } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface ExcerptModalProps {
@@ -21,18 +21,35 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [bookmarkedPages, setBookmarkedPages] = useState<number[]>([]);
 
+  // Reset to cover page whenever modal is opened
   useEffect(() => {
-    if (!isOpen && 'speechSynthesis' in window) {
+    if (isOpen) {
+      setPage(1);
+    } else if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
     }
-  }, [isOpen, page]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  }, [page]);
 
   if (!isOpen) return null;
 
   const pages = [
     {
       pageNumber: 1,
+      isCover: true,
+      chapterTitle: 'OFFICIAL BOOK COVER',
+      content: []
+    },
+    {
+      pageNumber: 2,
+      isCover: false,
       chapterTitle: 'CHAPTER 1: INTRODUCTORY',
       content: [
         "Ansonia, Connecticut was the kind of small town where everybody believed they knew each other.",
@@ -44,7 +61,8 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
       ]
     },
     {
-      pageNumber: 2,
+      pageNumber: 3,
+      isCover: false,
       chapterTitle: 'CHAPTER 1: INTRODUCTORY (Part 2)',
       content: [
         "Her mother was known for her kindness, the kind of woman who brought soup to sick neighbors and remembered birthdays without needing reminders. She smiled easily, spoke softly, and made people feel welcome the moment they stepped through the front door. At church, people often described her as having a heart of gold.",
@@ -56,7 +74,8 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
       ]
     },
     {
-      pageNumber: 3,
+      pageNumber: 4,
+      isCover: false,
       chapterTitle: 'CHAPTER 1: INTRODUCTORY (Part 3)',
       content: [
         "Because evil rarely looks frightening when people first meet it. Sometimes it sits beside you at dinner. Sometimes it laughs at family gatherings. Sometimes it lives only a floor below you. And sometimes the people you are taught to trust become the people you fear the most.",
@@ -68,7 +87,8 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
       ]
     },
     {
-      pageNumber: 4,
+      pageNumber: 5,
+      isCover: false,
       chapterTitle: 'CHAPTER 1: INTRODUCTORY (Part 4)',
       content: [
         'The questions came carefully at first, wrapped in concern sharp enough to wound. "Are you sure?" "Why didn\'t you say something sooner?" "You know what this accusation could do to this family."',
@@ -124,8 +144,10 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
     } else {
-      const fullText = `${currentPageData.chapterTitle}. ${currentPageData.content.join(' ')}`;
-      const utterance = new SpeechSynthesisUtterance(fullText);
+      const textToRead = currentPageData.isCover 
+        ? `${book.title}. ${book.subtitle}. By ${book.author}. Official Cover.`
+        : `${currentPageData.chapterTitle}. ${currentPageData.content.join(' ')}`;
+      const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.rate = 0.92;
       utterance.pitch = 1.0;
       utterance.onend = () => setIsSpeaking(false);
@@ -149,7 +171,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       
       {/* Reader Modal Container */}
-      <div className={`rounded-3xl max-w-3xl w-full p-6 sm:p-10 shadow-2xl border relative flex flex-col justify-between min-h-[620px] transition-all duration-300 ${currentTheme.bg}`}>
+      <div className={`rounded-3xl max-w-3xl w-full p-5 sm:p-8 shadow-2xl border relative flex flex-col justify-between min-h-[620px] transition-all duration-300 ${currentTheme.bg}`}>
         
         <div>
           {/* Reader Control Header */}
@@ -159,7 +181,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
             <div className="flex items-center gap-2">
               <BookOpen className={`w-4 h-4 ${currentTheme.accent}`} />
               <span className="font-serif-title font-bold text-sm sm:text-base">
-                Digital Excerpt Reader
+                {currentPageData.isCover ? 'Official Cover Preview' : 'Digital Chapter Reader'}
               </span>
             </div>
 
@@ -198,27 +220,29 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
                 </button>
               </div>
 
-              {/* Font Size Selector */}
-              <div className="flex items-center gap-1 bg-black/10 dark:bg-white/10 p-1 rounded-xl text-xs font-sans-body">
-                <button
-                  onClick={() => setFontSize('sm')}
-                  className={`px-2 py-0.5 rounded-lg ${fontSize === 'sm' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
-                >
-                  A-
-                </button>
-                <button
-                  onClick={() => setFontSize('md')}
-                  className={`px-2 py-0.5 rounded-lg ${fontSize === 'md' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
-                >
-                  A
-                </button>
-                <button
-                  onClick={() => setFontSize('lg')}
-                  className={`px-2 py-0.5 rounded-lg ${fontSize === 'lg' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
-                >
-                  A+
-                </button>
-              </div>
+              {/* Font Size Selector (Only for text pages) */}
+              {!currentPageData.isCover && (
+                <div className="flex items-center gap-1 bg-black/10 dark:bg-white/10 p-1 rounded-xl text-xs font-sans-body">
+                  <button
+                    onClick={() => setFontSize('sm')}
+                    className={`px-2 py-0.5 rounded-lg ${fontSize === 'sm' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
+                  >
+                    A-
+                  </button>
+                  <button
+                    onClick={() => setFontSize('md')}
+                    className={`px-2 py-0.5 rounded-lg ${fontSize === 'md' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
+                  >
+                    A
+                  </button>
+                  <button
+                    onClick={() => setFontSize('lg')}
+                    className={`px-2 py-0.5 rounded-lg ${fontSize === 'lg' ? 'bg-amber-600 text-white font-bold' : 'opacity-70'}`}
+                  >
+                    A+
+                  </button>
+                </div>
+              )}
 
               {/* Speech Audio Narrator */}
               {'speechSynthesis' in window && (
@@ -229,10 +253,10 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
                       ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold' 
                       : 'bg-black/10 hover:bg-black/20 border-current/20'
                   }`}
-                  title={isSpeaking ? 'Pause Speech Narration' : 'Listen to Chapter 1 Narration'}
+                  title={isSpeaking ? 'Pause Audio' : 'Listen to Audio'}
                 >
                   {isSpeaking ? <Pause className="w-3.5 h-3.5 animate-pulse" /> : <Play className="w-3.5 h-3.5" />}
-                  <span className="hidden sm:inline">{isSpeaking ? 'Pause Audio' : 'Listen'}</span>
+                  <span className="hidden sm:inline">{isSpeaking ? 'Pause' : 'Listen'}</span>
                 </button>
               )}
 
@@ -264,32 +288,99 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
             </div>
           </div>
 
-          {/* Chapter Title & Byline */}
-          <div className="text-center space-y-1 mb-8">
-            <span className={`text-[10px] font-sans-body uppercase tracking-[0.25em] font-bold ${currentTheme.accent}`}>
-              {book.title}
-            </span>
-            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold tracking-tight">
-              {currentPageData.chapterTitle}
-            </h3>
-            <p className="text-xs font-serif italic opacity-80">
-              By {book.author}
-            </p>
-          </div>
+          {/* PAGE CONTENT SWITCHER */}
+          {currentPageData.isCover ? (
+            /* ================= PAGE 1: OFFICIAL BOOK COVER ================= */
+            <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-8 my-2">
+              
+              {/* Cover Artwork Card */}
+              <div className="relative group shrink-0">
+                <div className="absolute -inset-3 bg-gradient-to-tr from-amber-500/40 via-amber-300/20 to-amber-600/30 rounded-2xl blur-xl" />
+                <div className="relative w-56 sm:w-64 h-[380px] sm:h-[430px] rounded-xl overflow-hidden shadow-2xl border-2 border-amber-400/40 bg-slate-900">
+                  <img 
+                    src={book.coverImage} 
+                    alt={book.title} 
+                    className="w-full h-full object-cover object-center filter contrast-[1.03]"
+                  />
+                  
+                  <div className="absolute bottom-3 right-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-sans-body text-[10px] font-extrabold tracking-wider px-2.5 py-1 rounded-full shadow-lg border border-amber-200 flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-slate-950" />
+                    <span>Official Cover</span>
+                  </div>
+                </div>
+              </div>
 
-          {/* Book Excerpt Text */}
-          <div className={`font-serif ${fontClasses[fontSize]}`}>
-            {currentPageData.content.map((paragraph, idx) => (
-              <p key={idx} className="indent-6 leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+              {/* Cover Details & Start Reading CTA */}
+              <div className="flex flex-col justify-between space-y-4 text-center md:text-left flex-1">
+                <div className="space-y-2">
+                  <span className={`text-[11px] font-sans-body uppercase tracking-[0.25em] font-extrabold ${currentTheme.accent}`}>
+                    Memoir • Non-Fiction
+                  </span>
+                  
+                  <h3 className="font-serif-title text-2xl sm:text-3xl font-bold tracking-tight">
+                    {book.title}
+                  </h3>
+                  
+                  <p className="text-xs sm:text-sm font-sans-body font-semibold uppercase tracking-wider opacity-90 text-amber-700 dark:text-amber-300">
+                    {book.subtitle}
+                  </p>
+
+                  <p className="text-sm font-serif italic opacity-80 pt-1">
+                    By <strong className="font-semibold">{book.author}</strong>
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-current/10 space-y-2 text-xs font-serif leading-relaxed">
+                  <p>
+                    "Every step has a story. Every scar holds strength. Every climb leads to healing."
+                  </p>
+                  <p className="opacity-75 font-sans text-[11px]">
+                    Turn page to begin reading Chapter 1: Introductory.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => setPage(2)}
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-sm font-extrabold shadow-xl flex items-center justify-center gap-2 border border-amber-200 group transition-all transform hover:-translate-y-0.5"
+                >
+                  <BookOpen className="w-4 h-4 text-slate-950" />
+                  <span>Begin Chapter 1 Preview</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950 transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
+
+            </div>
+          ) : (
+            /* ================= PAGES 2-5: CHAPTER 1 TEXT ================= */
+            <div>
+              {/* Chapter Title & Byline */}
+              <div className="text-center space-y-1 mb-6">
+                <span className={`text-[10px] font-sans-body uppercase tracking-[0.25em] font-bold ${currentTheme.accent}`}>
+                  {book.title}
+                </span>
+                <h3 className="font-serif-title text-2xl sm:text-3xl font-bold tracking-tight">
+                  {currentPageData.chapterTitle}
+                </h3>
+                <p className="text-xs font-serif italic opacity-80">
+                  By {book.author}
+                </p>
+              </div>
+
+              {/* Book Excerpt Text */}
+              <div className={`font-serif ${fontClasses[fontSize]}`}>
+                {currentPageData.content.map((paragraph, idx) => (
+                  <p key={idx} className="indent-6 leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
 
         </div>
 
         {/* Footer Navigation & Amazon CTA */}
-        <div className="pt-6 border-t border-current/15 mt-8 space-y-4">
+        <div className="pt-5 border-t border-current/15 mt-6 space-y-4">
           
           {/* Page Switcher */}
           <div className="flex items-center justify-between text-xs font-sans-body font-semibold">
@@ -304,12 +395,12 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
               }`}
             >
               <ChevronLeft className="w-4 h-4" />
-              <span>Previous Page</span>
+              <span>{page === 2 ? 'Back to Cover' : 'Previous Page'}</span>
             </button>
 
             <div className="flex items-center gap-2">
               <span className="font-serif text-sm font-bold">
-                Page {page} of {pages.length}
+                {page === 1 ? 'Page 1 of 5 (Official Cover)' : `Page ${page} of ${pages.length}`}
               </span>
               {bookmarkedPages.includes(page) && (
                 <span className="text-[10px] bg-amber-500 text-slate-950 font-sans font-bold px-2 py-0.5 rounded-full">
@@ -324,17 +415,17 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
                 if ('speechSynthesis' in window) window.speechSynthesis.cancel();
                 setPage(page + 1);
               }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-current/20 ${
-                page === pages.length ? 'opacity-30 cursor-not-allowed' : 'hover:bg-black/10 dark:hover:bg-white/10'
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-current/20 ${
+                page === pages.length ? 'opacity-30 cursor-not-allowed' : 'bg-amber-500/20 text-amber-900 dark:text-amber-200 border-amber-400/40 hover:bg-amber-500/30'
               }`}
             >
-              <span>Next Page</span>
+              <span>{page === 1 ? 'Read Chapter 1' : 'Next Page'}</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
           {/* Amazon Order Banner */}
-          <div className={`p-4 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-3 ${currentTheme.quoteBg}`}>
+          <div className={`p-3.5 sm:p-4 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-3 ${currentTheme.quoteBg}`}>
             <div className="text-center sm:text-left">
               <p className="text-xs font-bold font-sans-body">
                 Ready to read the full story of survival and transformation?
@@ -350,7 +441,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
                 onClose();
                 onBuyClick();
               }}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-xs font-extrabold shadow-md shrink-0 flex items-center gap-2 border border-amber-300"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-xs font-extrabold shadow-md shrink-0 flex items-center gap-2 border border-amber-300"
             >
               <ShoppingBag className="w-4 h-4 text-slate-950" />
               <span>Buy Full Memoir on Amazon</span>

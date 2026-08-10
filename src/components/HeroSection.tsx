@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookCover3D } from './BookCover3D';
-import { ShoppingBag, BookOpen, Heart, Sparkles, MapPin, Award, ArrowDown } from 'lucide-react';
+import { ShoppingBag, BookOpen, Heart, Sparkles, ArrowRight, ArrowDown } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface HeroSectionProps {
@@ -99,10 +99,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <button
               id="hero-preview-button"
               onClick={onReadPreviewClick}
-              className="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-900/80 hover:bg-slate-900 text-amber-100 font-sans-body text-sm font-semibold border border-amber-400/30 hover:border-amber-400/60 transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-4 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-sans-body text-sm font-bold border border-amber-400/50 hover:border-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg group"
             >
-              <BookOpen className="w-4 h-4 text-amber-400" />
-              <span>Read Sample Excerpt</span>
+              <BookOpen className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
+              <span>Open Chapter 1 Preview</span>
+              <ArrowRight className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
@@ -124,12 +125,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               size="lg"
               onClick={onReadPreviewClick}
             />
-
-            {/* Click to Preview Overlay hint */}
-            <p className="text-center text-xs text-amber-300/70 font-sans-body mt-6 flex items-center justify-center gap-1.5">
-              <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-              <span>Click book cover to read Chapter 1 preview</span>
-            </p>
           </div>
         </div>
 

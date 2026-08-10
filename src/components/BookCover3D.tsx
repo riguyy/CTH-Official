@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Sparkles, BookOpen } from 'lucide-react';
+import { Sparkles, BookOpen, ArrowRight } from 'lucide-react';
 
 interface BookCover3DProps {
   coverUrl?: string;
@@ -38,16 +38,16 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    // Calculate rotation (-12deg to +12deg)
-    const rY = ((x / rect.width) - 0.5) * 24;
-    const rX = ((y / rect.height) - 0.5) * -24;
+    // Calculate rotation (-14deg to +14deg)
+    const rY = ((x / rect.width) - 0.5) * 28;
+    const rX = ((y / rect.height) - 0.5) * -28;
     
     setRotateX(rX);
     setRotateY(rY);
     setGlarePos({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
-      opacity: 0.35,
+      opacity: 0.4,
     });
   };
 
@@ -68,7 +68,7 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
         style={{ perspective: '1200px' }}
       >
         {/* Glow / Ambient Lighting Behind Book */}
-        <div className="absolute -inset-4 bg-gradient-to-tr from-amber-500/30 via-orange-400/20 to-amber-200/10 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-80 group-hover:opacity-100 pointer-events-none" />
+        <div className="absolute -inset-4 bg-gradient-to-tr from-amber-500/40 via-amber-400/30 to-amber-200/20 rounded-3xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-80 group-hover:opacity-100 pointer-events-none" />
 
         {/* 3D Rotating Wrapper */}
         <div 
@@ -80,13 +80,13 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
         >
           {/* ================= FRONT COVER ONLY ================= */}
           <div 
-            className="absolute inset-0 w-full h-full rounded-r-xl rounded-l-sm bg-slate-900 overflow-hidden shadow-2xl border border-amber-500/30 text-white"
+            className="absolute inset-0 w-full h-full rounded-r-xl rounded-l-sm bg-slate-900 overflow-hidden shadow-2xl border-2 border-amber-400/50 text-white"
           >
             {/* Book Cover Artwork Image */}
             <img 
               src={coverUrl} 
               alt={title} 
-              className="w-full h-full object-cover object-center filter contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.02]"
+              className="w-full h-full object-cover object-center filter contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.03]"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80';
               }}
@@ -102,7 +102,7 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
             )}
 
             {/* Realistic 3D Page Edge Highlights (Right Edge) */}
-            <div className="absolute top-0 bottom-0 right-0 w-2 bg-gradient-to-l from-amber-100/40 via-amber-50/20 to-transparent z-20" />
+            <div className="absolute top-0 bottom-0 right-0 w-2.5 bg-gradient-to-l from-amber-100/40 via-amber-50/20 to-transparent z-20" />
 
             {/* Dynamic Mouse Glare Shine Effect */}
             <div 
@@ -111,6 +111,15 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
                 background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(255, 255, 255, ${glarePos.opacity}) 0%, rgba(255, 255, 255, 0) 60%)`,
               }}
             />
+
+            {/* Hover Action Ribbon */}
+            <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-center justify-center p-4 text-center backdrop-blur-[2px]">
+              <div className="px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-sans-body text-xs font-extrabold shadow-2xl flex items-center gap-2 border border-amber-200 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <BookOpen className="w-4 h-4 text-slate-950" />
+                <span>Click to Open Chapter 1</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+              </div>
+            </div>
 
             {/* Floating Gold Foil Accent Badge */}
             <div className="absolute bottom-4 right-4 z-30 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-sans-body text-[10px] font-extrabold tracking-wider px-3 py-1 rounded-full shadow-xl border border-amber-200 flex items-center gap-1">
@@ -122,13 +131,14 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
       </div>
 
       {/* Interactive Control Button */}
-      <div className="mt-4 flex items-center gap-3">
+      <div className="mt-5 flex items-center gap-3">
         <button
           onClick={onClick}
-          className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-900 text-amber-200 border border-amber-400/40 hover:border-amber-400/80 text-xs font-sans-body font-semibold transition-all shadow-md hover:shadow-amber-500/10"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500/20 via-amber-400/30 to-amber-500/20 hover:from-amber-500/40 hover:to-amber-500/40 text-amber-200 border border-amber-400/50 hover:border-amber-300 text-xs font-sans-body font-bold transition-all shadow-lg hover:shadow-amber-500/20 hover:scale-105 active:scale-95 group"
         >
-          <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-          <span>Read Chapter 1 Preview</span>
+          <BookOpen className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
+          <span>Click Cover to Read Chapter 1 Preview</span>
+          <ArrowRight className="w-3.5 h-3.5 text-amber-300 group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
     </div>
