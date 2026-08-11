@@ -7,12 +7,14 @@ interface HeroSectionProps {
   book: BookDetails;
   onBuyClick: () => void;
   onReadPreviewClick: () => void;
+  onStartClimbClick: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   book,
   onBuyClick,
   onReadPreviewClick,
+  onStartClimbClick,
 }) => {
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-950 text-white">
@@ -100,11 +102,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
 
           {/* Call to Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3.5 pt-4 w-full sm:w-auto">
             <button
               id="hero-buy-button"
               onClick={onBuyClick}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 border border-amber-300"
+              className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 border border-amber-300 cursor-pointer"
             >
               <ShoppingBag className="w-4 h-4 text-slate-950" />
               <span>Buy the Book on Amazon</span>
@@ -113,11 +115,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <button
               id="hero-preview-button"
               onClick={onReadPreviewClick}
-              className="w-full sm:w-auto px-7 py-4 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-sans-body text-sm font-bold border border-amber-400/50 hover:border-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg group"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-sans-body text-sm font-bold border border-amber-400/50 hover:border-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg group cursor-pointer"
             >
               <BookOpen className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-              <span>Open Chapter 1 Preview</span>
+              <span>Chapter 1 Preview</span>
               <ArrowRight className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            {/* Prominent "Start the Climb" Experience Button */}
+            <button
+              id="hero-start-climb-button"
+              onClick={onStartClimbClick}
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_20px_rgba(251,191,36,0.4)] hover:shadow-[0_0_30px_rgba(251,191,36,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
+            >
+              <span className="text-base">🧗</span>
+              <span>Start the Climb</span>
+              <Sparkles className="w-4 h-4 text-slate-950 animate-pulse" />
             </button>
           </div>
 

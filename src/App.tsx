@@ -14,11 +14,13 @@ import { CommunityWallSection } from './components/CommunityWallSection';
 import { OurTeamSection } from './components/OurTeamSection';
 import { Footer } from './components/Footer';
 import { ExcerptModal } from './components/ExcerptModal';
+import { MountainClimbExperience } from './components/MountainClimbExperience';
 import { ambienceEngine } from './utils/audioAmbience';
 
 export function App() {
   const [bookDetails, setBookDetails] = useState<BookDetails>(initialBookDetails);
   const [isExcerptOpen, setIsExcerptOpen] = useState(false);
+  const [isMountainClimbOpen, setIsMountainClimbOpen] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
 
   // Scroll to "Where to Buy" or open Amazon
@@ -65,6 +67,7 @@ export function App() {
           book={bookDetails}
           onBuyClick={handleBuyClick}
           onReadPreviewClick={handleReadPreviewClick}
+          onStartClimbClick={() => setIsMountainClimbOpen(true)}
         />
 
         {/* Section 2: About the Book */}
@@ -118,6 +121,13 @@ export function App() {
         onClose={() => setIsExcerptOpen(false)}
         book={bookDetails}
         onBuyClick={handleBuyClick}
+      />
+
+      {/* Digital Mountain Climb Experience Modal */}
+      <MountainClimbExperience
+        isOpen={isMountainClimbOpen}
+        onClose={() => setIsMountainClimbOpen(false)}
+        mountainBgUrl={bookDetails.mountainBgImage}
       />
 
     </div>
