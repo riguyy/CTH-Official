@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookCover3D } from './BookCover3D';
-import { ShoppingBag, BookOpen, Heart, Sparkles, Star, ArrowRight, ArrowDown, Calendar, Clock } from 'lucide-react';
+import { ShoppingBag, BookOpen, Heart, Sparkles, ArrowRight, ArrowDown, Calendar, Clock } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface HeroSectionProps {
@@ -8,6 +8,7 @@ interface HeroSectionProps {
   onBuyClick: () => void;
   onReadPreviewClick: () => void;
   onStartClimbClick: () => void;
+  onTheMessageClick: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -15,6 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onBuyClick,
   onReadPreviewClick,
   onStartClimbClick,
+  onTheMessageClick,
 }) => {
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-950 text-white">
@@ -125,28 +127,41 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </button>
             </div>
 
-            {/* Bottom Row: Centered "Start the Climb" Experience Button Surrounded by Twinkling Stars */}
-            <div className="w-full max-w-md sm:max-w-none flex justify-center lg:justify-start pt-1">
+            {/* Bottom Row: Centered "Start the Climb" & "The Message" Experience Buttons with Glowing Effects */}
+            <div className="w-full max-w-md sm:max-w-none flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-4 pt-1">
+              
+              {/* START THE CLIMB Button */}
               <div className="relative group/climb inline-flex items-center justify-center w-full sm:w-auto">
-                {/* Floating Twinkling Stars & Sparkles Around Button */}
-                <Sparkles className="absolute -top-3.5 -left-3.5 w-6 h-6 text-amber-300 animate-bounce pointer-events-none drop-shadow-[0_0_10px_rgba(251,191,36,1)] z-20" />
-                <Star className="absolute -top-3 -right-3 w-5 h-5 fill-amber-300 text-amber-200 animate-pulse pointer-events-none drop-shadow-[0_0_10px_rgba(251,191,36,1)] z-20" />
-                <Star className="absolute -bottom-2.5 -left-2.5 w-4 h-4 fill-amber-400 text-amber-300 animate-ping pointer-events-none opacity-80 z-20" />
-                <Sparkles className="absolute -bottom-3.5 -right-3.5 w-6 h-6 text-amber-200 animate-pulse pointer-events-none drop-shadow-[0_0_12px_rgba(251,191,36,1)] z-20" />
-                
                 {/* Radiant Golden Glow Halo Behind Button */}
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 opacity-80 blur-md group-hover/climb:opacity-100 group-hover/climb:blur-lg transition-all duration-300 animate-pulse" />
 
                 <button
                   id="hero-start-climb-button"
                   onClick={onStartClimbClick}
-                  className="relative z-10 w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_25px_rgba(251,191,36,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
+                  className="relative z-10 w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_25px_rgba(251,191,36,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
                 >
                   <span className="text-lg">🧗</span>
                   <span className="uppercase tracking-wider">Start the Climb</span>
                   <Sparkles className="w-4.5 h-4.5 text-slate-950 animate-spin-slow" />
                 </button>
               </div>
+
+              {/* THE MESSAGE Button */}
+              <div className="relative group/message inline-flex items-center justify-center w-full sm:w-auto">
+                {/* Radiant Rose Gold Glow Halo Behind Button */}
+                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-rose-500 via-amber-400 to-amber-500 opacity-80 blur-md group-hover/message:opacity-100 group-hover/message:blur-lg transition-all duration-300 animate-pulse" />
+
+                <button
+                  id="hero-the-message-button"
+                  onClick={onTheMessageClick}
+                  className="relative z-10 w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 via-amber-500 to-amber-600 hover:from-rose-500 hover:to-amber-400 text-white font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_25px_rgba(244,63,94,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
+                >
+                  <span className="text-lg">❤️</span>
+                  <span className="uppercase tracking-wider">THE MESSAGE</span>
+                  <Sparkles className="w-4.5 h-4.5 text-white animate-spin-slow" />
+                </button>
+              </div>
+
             </div>
           </div>
 

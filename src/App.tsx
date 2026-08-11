@@ -15,12 +15,14 @@ import { OurTeamSection } from './components/OurTeamSection';
 import { Footer } from './components/Footer';
 import { ExcerptModal } from './components/ExcerptModal';
 import { MountainClimbExperience } from './components/MountainClimbExperience';
+import { TheMessageExperience } from './components/TheMessageExperience';
 import { ambienceEngine } from './utils/audioAmbience';
 
 export function App() {
   const [bookDetails, setBookDetails] = useState<BookDetails>(initialBookDetails);
   const [isExcerptOpen, setIsExcerptOpen] = useState(false);
   const [isMountainClimbOpen, setIsMountainClimbOpen] = useState(false);
+  const [isTheMessageOpen, setIsTheMessageOpen] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
 
   // Scroll to "Where to Buy" or open Amazon
@@ -68,6 +70,7 @@ export function App() {
           onBuyClick={handleBuyClick}
           onReadPreviewClick={handleReadPreviewClick}
           onStartClimbClick={() => setIsMountainClimbOpen(true)}
+          onTheMessageClick={() => setIsTheMessageOpen(true)}
         />
 
         {/* Section 2: About the Book */}
@@ -128,6 +131,12 @@ export function App() {
         isOpen={isMountainClimbOpen}
         onClose={() => setIsMountainClimbOpen(false)}
         mountainBgUrl={bookDetails.mountainBgImage}
+      />
+
+      {/* Cinematic The Message Experience Modal */}
+      <TheMessageExperience
+        isOpen={isTheMessageOpen}
+        onClose={() => setIsTheMessageOpen(false)}
       />
 
     </div>
