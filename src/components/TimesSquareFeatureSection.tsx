@@ -55,7 +55,7 @@ export const TimesSquareFeatureSection: React.FC<TimesSquareFeatureSectionProps>
                   <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
                   <div>
                     <span className="font-bold text-white block">Times Square, New York City</span>
-                    <span className="text-[11px] text-slate-300">New York State Times Official Billboard Showcase</span>
+                    <span className="text-[11px] text-slate-300">New York Times Official Billboard Showcase</span>
                   </div>
                 </div>
 
@@ -76,7 +76,7 @@ export const TimesSquareFeatureSection: React.FC<TimesSquareFeatureSectionProps>
               </h3>
 
               <p>
-                A huge thank you to <strong>New York State Times</strong> for creating a official book trailer showcased on their iconic Times Square billboard.
+                A huge thank you to <strong>New York Times</strong> for creating a official book trailer showcased on their iconic Times Square billboard.
               </p>
 
               <p>
