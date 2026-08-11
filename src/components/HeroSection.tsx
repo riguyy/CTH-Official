@@ -102,46 +102,51 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
 
           {/* Call to Action Buttons */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3.5 pt-4 w-full sm:w-auto">
-            <button
-              id="hero-buy-button"
-              onClick={onBuyClick}
-              className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 border border-amber-300 cursor-pointer"
-            >
-              <ShoppingBag className="w-4 h-4 text-slate-950" />
-              <span>Buy the Book on Amazon</span>
-            </button>
-
-            <button
-              id="hero-preview-button"
-              onClick={onReadPreviewClick}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-sans-body text-sm font-bold border border-amber-400/50 hover:border-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg group cursor-pointer"
-            >
-              <BookOpen className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-              <span>Chapter 1 Preview</span>
-              <ArrowRight className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
-            </button>
-
-            {/* Prominent "Start the Climb" Experience Button Surrounded by Twinkling Stars */}
-            <div className="relative group/climb inline-flex items-center justify-center w-full sm:w-auto mt-1 sm:mt-0">
-              {/* Floating Twinkling Stars & Sparkles Around Button */}
-              <Sparkles className="absolute -top-3.5 -left-3.5 w-6 h-6 text-amber-300 animate-bounce pointer-events-none drop-shadow-[0_0_10px_rgba(251,191,36,1)] z-20" />
-              <Star className="absolute -top-3 -right-3 w-5 h-5 fill-amber-300 text-amber-200 animate-pulse pointer-events-none drop-shadow-[0_0_10px_rgba(251,191,36,1)] z-20" />
-              <Star className="absolute -bottom-2.5 -left-2.5 w-4 h-4 fill-amber-400 text-amber-300 animate-ping pointer-events-none opacity-80 z-20" />
-              <Sparkles className="absolute -bottom-3.5 -right-3.5 w-6 h-6 text-amber-200 animate-pulse pointer-events-none drop-shadow-[0_0_12px_rgba(251,191,36,1)] z-20" />
-              
-              {/* Radiant Golden Glow Halo Behind Button */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 opacity-80 blur-md group-hover/climb:opacity-100 group-hover/climb:blur-lg transition-all duration-300 animate-pulse" />
+          <div className="flex flex-col items-center lg:items-start gap-4 pt-4 w-full">
+            {/* Top Row: Buy on Amazon & Chapter 1 Preview */}
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto">
+              <button
+                id="hero-buy-button"
+                onClick={onBuyClick}
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 border border-amber-300 cursor-pointer"
+              >
+                <ShoppingBag className="w-4 h-4 text-slate-950" />
+                <span>Buy the Book on Amazon</span>
+              </button>
 
               <button
-                id="hero-start-climb-button"
-                onClick={onStartClimbClick}
-                className="relative z-10 w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_25px_rgba(251,191,36,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
+                id="hero-preview-button"
+                onClick={onReadPreviewClick}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 font-sans-body text-sm font-bold border border-amber-400/50 hover:border-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg group cursor-pointer"
               >
-                <span className="text-lg">🧗</span>
-                <span className="uppercase tracking-wider">Start the Climb</span>
-                <Sparkles className="w-4.5 h-4.5 text-slate-950 animate-spin-slow" />
+                <BookOpen className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
+                <span>Chapter 1 Preview</span>
+                <ArrowRight className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
               </button>
+            </div>
+
+            {/* Bottom Row: Centered "Start the Climb" Experience Button Surrounded by Twinkling Stars */}
+            <div className="w-full max-w-md sm:max-w-none flex justify-center lg:justify-start pt-1">
+              <div className="relative group/climb inline-flex items-center justify-center w-full sm:w-auto">
+                {/* Floating Twinkling Stars & Sparkles Around Button */}
+                <Sparkles className="absolute -top-3.5 -left-3.5 w-6 h-6 text-amber-300 animate-bounce pointer-events-none drop-shadow-[0_0_10px_rgba(251,191,36,1)] z-20" />
+                <Star className="absolute -top-3 -right-3 w-5 h-5 fill-amber-300 text-amber-200 animate-pulse pointer-events-none drop-shadow-[0_0_10px_rgba(251,191,36,1)] z-20" />
+                <Star className="absolute -bottom-2.5 -left-2.5 w-4 h-4 fill-amber-400 text-amber-300 animate-ping pointer-events-none opacity-80 z-20" />
+                <Sparkles className="absolute -bottom-3.5 -right-3.5 w-6 h-6 text-amber-200 animate-pulse pointer-events-none drop-shadow-[0_0_12px_rgba(251,191,36,1)] z-20" />
+                
+                {/* Radiant Golden Glow Halo Behind Button */}
+                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 opacity-80 blur-md group-hover/climb:opacity-100 group-hover/climb:blur-lg transition-all duration-300 animate-pulse" />
+
+                <button
+                  id="hero-start-climb-button"
+                  onClick={onStartClimbClick}
+                  className="relative z-10 w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_25px_rgba(251,191,36,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
+                >
+                  <span className="text-lg">🧗</span>
+                  <span className="uppercase tracking-wider">Start the Climb</span>
+                  <Sparkles className="w-4.5 h-4.5 text-slate-950 animate-spin-slow" />
+                </button>
+              </div>
             </div>
           </div>
 
