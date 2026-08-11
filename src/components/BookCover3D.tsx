@@ -14,7 +14,7 @@ interface BookCover3DProps {
 export const BookCover3D: React.FC<BookCover3DProps> = ({
   coverUrl = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80',
   title = 'Climbing Toward Healing',
-  author = 'JACQUELINE EYE',
+  author = 'Jacqueline Eye',
   subtitle = 'A JOURNEY OF SURVIVAL, STRENGTH, AND FINDING LIGHT AFTER THE DARKNESS',
   size = 'lg',
   onClick,

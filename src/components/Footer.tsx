@@ -126,6 +126,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li><a href="#about-book" className="hover:text-amber-300 transition-colors">About the Book</a></li>
               <li><a href="#why-written" className="hover:text-amber-300 transition-colors">Why It Was Written</a></li>
               <li><a href="#about-author" className="hover:text-amber-300 transition-colors">About Jacqueline Eye</a></li>
+              <li><a href="#our-team" className="hover:text-amber-300 transition-colors font-semibold text-amber-300">Our Team (Author & Market Director)</a></li>
               <li><a href="#quotes" className="hover:text-amber-300 transition-colors">Book Quotes</a></li>
               <li><a href="#times-square" className="hover:text-amber-300 transition-colors">Times Square Billboard</a></li>
             </ul>

@@ -6,7 +6,7 @@ export const initialBookDetails: BookDetails = {
   title: 'Climbing Toward Healing',
   subtitle: 'A journey of healing, hope, and finding your way forward.',
   tagline: 'A JOURNEY OF SURVIVAL, STRENGTH, AND FINDING LIGHT AFTER THE DARKNESS',
-  author: 'JACQUELINE EYE',
+  author: 'Jacqueline Eye',
   isbn: '978-1-63988-123-4',
   
   // High quality artwork tailored for Climbing Toward Healing

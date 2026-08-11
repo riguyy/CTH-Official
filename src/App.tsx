@@ -10,6 +10,7 @@ import { QuoteBannerSection } from './components/QuoteBannerSection';
 import { TimesSquareFeatureSection } from './components/TimesSquareFeatureSection';
 import { WhereToBuySection } from './components/WhereToBuySection';
 import { CommunityWallSection } from './components/CommunityWallSection';
+import { OurTeamSection } from './components/OurTeamSection';
 import { Footer } from './components/Footer';
 import { ExcerptModal } from './components/ExcerptModal';
 import { ambienceEngine } from './utils/audioAmbience';
@@ -91,6 +92,9 @@ export function App() {
 
         {/* Section 8: Social Media & Community Wall */}
         <CommunityWallSection book={bookDetails} />
+
+        {/* Section 9: Our Team */}
+        <OurTeamSection book={bookDetails} />
       </main>
 
       {/* Footer */}
