@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookCover3D } from './BookCover3D';
-import { ShoppingBag, BookOpen, Heart, Sparkles, ArrowRight, ArrowDown } from 'lucide-react';
+import { ShoppingBag, BookOpen, Heart, Sparkles, ArrowRight, ArrowDown, Calendar, Clock } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface HeroSectionProps {
@@ -34,15 +34,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         {/* Left Column: Headline, Intro, CTAs */}
         <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
           
-          {/* Times Square Billboard Announcement Badge */}
-          <a 
-            href="#times-square"
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-amber-200 text-xs font-sans-body font-medium transition-all hover:bg-amber-500/30 hover:border-amber-400/50"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-            <span>Featured on Times Square Billboard NYC</span>
-            <span className="text-amber-300 font-serif">→</span>
-          </a>
+          {/* Top Badges Row: Dates & Billboard Announcement */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 text-xs font-sans-body">
+            
+            {/* Publishing & Last Updated Dates Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-md border border-amber-400/40 text-amber-200 shadow-lg">
+              <Calendar className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span><strong>Published:</strong> August 10, 2026</span>
+              <span className="text-amber-400/40">•</span>
+              <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span><strong>Last Updated:</strong> August 11, 2026</span>
+            </div>
+
+            {/* Times Square Billboard Announcement Badge */}
+            <a 
+              href="#times-square"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-amber-200 transition-all hover:bg-amber-500/30 hover:border-amber-400/50"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+              <span>Times Square NYC Billboard</span>
+              <span className="text-amber-300 font-serif">→</span>
+            </a>
+
+          </div>
 
           {/* Main Title */}
           <div className="space-y-2">

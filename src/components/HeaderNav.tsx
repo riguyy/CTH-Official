@@ -32,6 +32,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
     { label: 'Quotes', href: '#quotes' },
     { label: 'Times Square', href: '#times-square' },
     { label: 'Where to Buy', href: '#where-to-buy' },
+    { label: 'News & Updates', href: '#news-updates' },
     { label: 'Community', href: '#community' },
     { label: 'Our Team', href: '#our-team' },
   ];

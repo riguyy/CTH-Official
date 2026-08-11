@@ -97,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({
               An official promotional website dedicated to <em>Climbing Toward Healing</em>—a memoir of resilience, survival, and finding light after darkness.
             </p>
 
-            <div className="flex items-center gap-3 text-xs pt-1">
+            <div className="flex flex-wrap items-center gap-3 text-xs pt-1">
               <a 
                 href={book.socialLinks.facebook} 
                 target="_blank" 
@@ -114,6 +114,14 @@ export const Footer: React.FC<FooterProps> = ({
               >
                 TikTok
               </a>
+              <a 
+                href={book.socialLinks.instagram} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-400/20 transition-colors"
+              >
+                Instagram
+              </a>
             </div>
           </div>
 
@@ -126,7 +134,9 @@ export const Footer: React.FC<FooterProps> = ({
               <li><a href="#about-book" className="hover:text-amber-300 transition-colors">About the Book</a></li>
               <li><a href="#why-written" className="hover:text-amber-300 transition-colors">Why It Was Written</a></li>
               <li><a href="#about-author" className="hover:text-amber-300 transition-colors">About Jacqueline Eye</a></li>
-              <li><a href="#our-team" className="hover:text-amber-300 transition-colors font-semibold text-amber-300">Our Team (Author & Market Director)</a></li>
+              <li><a href="#where-to-buy" className="hover:text-amber-300 transition-colors">Where to Buy</a></li>
+              <li><a href="#news-updates" className="hover:text-amber-300 transition-colors font-semibold text-amber-300">News & Updates Board</a></li>
+              <li><a href="#our-team" className="hover:text-amber-300 transition-colors">Our Team</a></li>
               <li><a href="#quotes" className="hover:text-amber-300 transition-colors">Book Quotes</a></li>
               <li><a href="#times-square" className="hover:text-amber-300 transition-colors">Times Square Billboard</a></li>
             </ul>

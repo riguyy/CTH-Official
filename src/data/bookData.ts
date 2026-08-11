@@ -26,8 +26,8 @@ export const initialBookDetails: BookDetails = {
   },
   
   socialLinks: {
-    facebook: 'https://www.facebook.com/share/1CtoQo8zVQ/?mibextid=wwXIfr',
-    tiktok: 'https://www.tiktok.com/@climbing.toward.healing?_r=1&_t=ZP-98kiocdHVOh',
-    instagram: 'https://instagram.com/JacquelineEyeAuthor',
+    facebook: 'https://www.facebook.com/share/1c4SmXV7XA/?mibextid=wwXIfr',
+    tiktok: 'https://www.tiktok.com/@climbing.toward.healing?_r=1&_t=ZP-98nWpgmMttW',
+    instagram: 'https://www.instagram.com/climbingtowardhealing?igsh=MTJmejl4MmdwY3Byag%3D%3D&utm_source=qr',
   },
 };

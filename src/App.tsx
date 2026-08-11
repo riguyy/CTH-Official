@@ -9,6 +9,7 @@ import { AboutAuthorSection } from './components/AboutAuthorSection';
 import { QuoteBannerSection } from './components/QuoteBannerSection';
 import { TimesSquareFeatureSection } from './components/TimesSquareFeatureSection';
 import { WhereToBuySection } from './components/WhereToBuySection';
+import { NewsUpdatesBoardSection } from './components/NewsUpdatesBoardSection';
 import { CommunityWallSection } from './components/CommunityWallSection';
 import { OurTeamSection } from './components/OurTeamSection';
 import { Footer } from './components/Footer';
@@ -90,7 +91,14 @@ export function App() {
         {/* Section 7: Where to Buy */}
         <WhereToBuySection book={bookDetails} />
 
-        {/* Section 8: Social Media & Community Wall */}
+        {/* Section 8: News & Updates Board */}
+        <NewsUpdatesBoardSection
+          book={bookDetails}
+          onBuyClick={handleBuyClick}
+          onReadPreviewClick={handleReadPreviewClick}
+        />
+
+        {/* Section 9: Social Media & Community Wall ("Join the Healing Journey") */}
         <CommunityWallSection book={bookDetails} />
 
         {/* Section 9: Our Team */}
