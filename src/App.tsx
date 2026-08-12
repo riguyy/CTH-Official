@@ -16,6 +16,7 @@ import { Footer } from './components/Footer';
 import { ExcerptModal } from './components/ExcerptModal';
 import { MountainClimbExperience } from './components/MountainClimbExperience';
 import { TheMessageExperience } from './components/TheMessageExperience';
+import { BookUpdatesTimelineModal } from './components/BookUpdatesTimelineModal';
 import { ambienceEngine } from './utils/audioAmbience';
 
 export function App() {
@@ -23,6 +24,7 @@ export function App() {
   const [isExcerptOpen, setIsExcerptOpen] = useState(false);
   const [isMountainClimbOpen, setIsMountainClimbOpen] = useState(false);
   const [isTheMessageOpen, setIsTheMessageOpen] = useState(false);
+  const [isTimelineOpen, setIsTimelineOpen] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
 
   // Scroll to "Where to Buy" or open Amazon
@@ -105,7 +107,10 @@ export function App() {
         />
 
         {/* Section 9: Social Media & Community Wall ("Join the Healing Journey") */}
-        <CommunityWallSection book={bookDetails} />
+        <CommunityWallSection 
+          book={bookDetails} 
+          onOpenTimelineClick={() => setIsTimelineOpen(true)}
+        />
 
         {/* Section 9: Our Team */}
         <OurTeamSection book={bookDetails} />
@@ -116,6 +121,7 @@ export function App() {
         book={bookDetails}
         onBuyClick={handleBuyClick}
         onReadPreviewClick={handleReadPreviewClick}
+        onOpenTimelineClick={() => setIsTimelineOpen(true)}
       />
 
       {/* Sample Excerpt Modal */}
@@ -137,6 +143,18 @@ export function App() {
       <TheMessageExperience
         isOpen={isTheMessageOpen}
         onClose={() => setIsTheMessageOpen(false)}
+      />
+
+      {/* Book Updates Timeline Modal */}
+      <BookUpdatesTimelineModal
+        isOpen={isTimelineOpen}
+        onClose={() => setIsTimelineOpen(false)}
+        onFollowJourneyClick={() => {
+          const footerForm = document.querySelector('form');
+          if (footerForm) {
+            footerForm.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
       />
 
     </div>

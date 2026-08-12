@@ -6,12 +6,14 @@ interface FooterProps {
   book: BookDetails;
   onBuyClick: () => void;
   onReadPreviewClick: () => void;
+  onOpenTimelineClick?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   book,
   onBuyClick,
   onReadPreviewClick,
+  onOpenTimelineClick,
 }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -122,6 +124,17 @@ export const Footer: React.FC<FooterProps> = ({
               >
                 Instagram
               </a>
+            </div>
+
+            {/* Book Updates Timeline Button */}
+            <div className="pt-2">
+              <button
+                onClick={onOpenTimelineClick}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 hover:scale-105 transition-all border border-white cursor-pointer"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+                <span>Book Updates Timeline (2020–2026)</span>
+              </button>
             </div>
           </div>
 

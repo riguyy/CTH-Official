@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Heart, MessageSquare, Send, Sparkles, Share2, ThumbsUp } from 'lucide-react';
+import { Heart, MessageSquare, Send, Sparkles, Share2, ThumbsUp, Compass, Calendar } from 'lucide-react';
 import { BookDetails, EncouragementNote } from '../types';
 
 interface CommunityWallSectionProps {
   book: BookDetails;
+  onOpenTimelineClick?: () => void;
 }
 
 export const CommunityWallSection: React.FC<CommunityWallSectionProps> = ({
   book,
+  onOpenTimelineClick,
 }) => {
   const [notes, setNotes] = useState<EncouragementNote[]>([
     {
@@ -175,6 +177,33 @@ export const CommunityWallSection: React.FC<CommunityWallSectionProps> = ({
             </a>
           </div>
 
+        </div>
+
+        {/* Book Updates Timeline Button Banner (Under Facebook, TikTok, Instagram cards) */}
+        <div className="bg-gradient-to-r from-slate-950 via-amber-950 to-slate-950 p-6 sm:p-8 rounded-3xl border-2 border-amber-400/50 shadow-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+          <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-amber-400/10 blur-2xl pointer-events-none" />
+          
+          <div className="space-y-2 text-center md:text-left z-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[11px] font-mono font-semibold uppercase tracking-wider border border-amber-400/30">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>INTERACTIVE BOOK JOURNEY (2020 – 2026)</span>
+            </div>
+            <h3 className="font-serif-title text-2xl sm:text-3xl font-extrabold text-amber-100">
+              Book Updates Timeline
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+              Explore how <em>Climbing Toward Healing</em> grew from a seed of hope in 2020 through publication, New York Times Square features, and exciting future milestones.
+            </p>
+          </div>
+
+          <button
+            id="timeline-banner-button"
+            onClick={onOpenTimelineClick}
+            className="z-10 px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-sans-body font-extrabold text-xs sm:text-sm tracking-wide shadow-xl shadow-amber-500/30 hover:scale-105 transition-all border-2 border-white cursor-pointer shrink-0 flex items-center justify-center gap-2"
+          >
+            <Calendar className="w-4 h-4 text-slate-950" />
+            <span>View Book Updates Timeline</span>
+          </button>
         </div>
 
         {/* Reader Encouragement Note Wall */}
