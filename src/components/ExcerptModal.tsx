@@ -291,7 +291,7 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
           {/* PAGE CONTENT SWITCHER */}
           {currentPageData.isCover ? (
             /* ================= PAGE 1: OFFICIAL BOOK COVER ================= */
-            <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-8 my-2">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8 my-2">
               
               {/* Cover Artwork Card - Clickable Button to Read Preview */}
               <button 
@@ -300,23 +300,31 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
                 title="Click photo to read Chapter 1 preview"
               >
                 <div className="absolute -inset-3 bg-gradient-to-tr from-amber-500/40 via-amber-300/20 to-amber-600/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-                <div className="relative w-56 sm:w-64 h-[380px] sm:h-[430px] rounded-xl overflow-hidden shadow-2xl border-2 border-amber-400/40 group-hover:border-amber-400/80 bg-slate-900 transition-all">
+                <div className="relative w-56 sm:w-64 aspect-[848/1264] rounded-xl overflow-hidden shadow-2xl border-2 border-amber-400/40 group-hover:border-amber-400/80 bg-slate-900 transition-all">
                   <img 
                     src={book.coverImage} 
                     alt={book.title} 
-                    className="w-full h-full object-cover object-center filter contrast-[1.03] group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
-                  
-                  {/* Prominent Centered Disclaimer & Preview Button Badge */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[88%] bg-slate-950/90 group-hover:bg-amber-500 text-amber-200 group-hover:text-slate-950 font-sans-body text-xs font-extrabold tracking-wide px-3.5 py-3 rounded-2xl shadow-xl border-2 border-amber-400/60 group-hover:border-amber-300 flex flex-col items-center justify-center gap-1.5 transition-all text-center backdrop-blur-md">
-                    <div className="flex items-center justify-center gap-1.5">
-                      <Sparkles className="w-4 h-4 text-amber-400 group-hover:text-slate-950 shrink-0" />
+
+                  {/* Notice Overlay Box Positioned at Top of Cover (Above Mountain Peak) */}
+                  <div className="absolute top-8 sm:top-10 left-1/2 -translate-x-1/2 w-[92%] z-20 bg-slate-950/92 border border-amber-400/70 rounded-xl p-2 sm:p-2.5 text-center shadow-2xl backdrop-blur-md pointer-events-none">
+                    <div className="flex items-center justify-center gap-1 text-amber-300 font-extrabold text-[10px] sm:text-xs mb-0.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                       <span>This is not the Official Cover</span>
                     </div>
-                    <div className="flex items-center justify-center gap-1 text-[11px] text-amber-300 group-hover:text-slate-950 font-bold border-t border-amber-400/30 pt-1 w-full">
-                      <span>Click to Read Preview</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    <p className="text-[9px] sm:text-[10px] leading-tight text-slate-200 font-sans-body">
+                      The cover shown here is a temporary display image. Due to a technical issue during the website transfer, the official book cover could not be transferred correctly to the website.
+                    </p>
+                    <p className="text-[9px] sm:text-[10px] leading-tight text-amber-200/95 font-sans-body mt-1 pt-1 border-t border-amber-400/30">
+                      For the <strong className="text-amber-200 font-semibold">official cover of <em>Climbing Toward Healing</em></strong>, visit our social media or view on Amazon.
+                    </p>
+                  </div>
+
+                  {/* Bottom Preview Interactive Button Overlay */}
+                  <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-[90%] z-20 bg-slate-950/90 group-hover:bg-amber-500 text-amber-200 group-hover:text-slate-950 font-sans-body text-xs font-bold px-3 py-1.5 rounded-xl shadow-xl border border-amber-400/60 flex items-center justify-center gap-1.5 backdrop-blur-md transition-all">
+                    <span>Click to Read Preview</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
 
                 </div>
@@ -360,7 +368,6 @@ export const ExcerptModal: React.FC<ExcerptModalProps> = ({
                   <ArrowRight className="w-4 h-4 text-slate-950 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
-
             </div>
           ) : (
             /* ================= PAGES 2-5: CHAPTER 1 TEXT ================= */

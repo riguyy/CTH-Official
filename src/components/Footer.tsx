@@ -130,10 +130,10 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="pt-2">
               <button
                 onClick={onOpenTimelineClick}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 hover:scale-105 transition-all border border-white cursor-pointer"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 hover:scale-105 transition-all border border-white cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5 text-slate-950" />
-                <span>Book Updates Timeline (2020–2026)</span>
+                <span>Book Updates Timeline</span>
               </button>
             </div>
           </div>

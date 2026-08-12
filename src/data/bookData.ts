@@ -1,5 +1,5 @@
 import { BookDetails } from '../types';
-import officialBookCoverImage from '../assets/images/phototourl_book_cover.jpg';
+import officialBookCoverImage from '../assets/images/faithful_book_cover_1786558897238.jpg';
 import authorSpeakerPhotoImage from '../assets/images/instasize_author_speaker.jpg';
 
 export const initialBookDetails: BookDetails = {

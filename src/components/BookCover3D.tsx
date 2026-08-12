@@ -26,10 +26,10 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const sizeClasses = {
-    sm: 'w-44 h-64',
-    md: 'w-56 h-80',
-    lg: 'w-72 h-[430px] sm:w-80 sm:h-[480px]',
-    xl: 'w-80 h-[490px] sm:w-96 sm:h-[570px]',
+    sm: 'w-44 aspect-[848/1264]',
+    md: 'w-56 aspect-[848/1264]',
+    lg: 'w-72 sm:w-80 aspect-[848/1264]',
+    xl: 'w-80 sm:w-96 aspect-[848/1264]',
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -86,23 +86,33 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
             <img 
               src={coverUrl} 
               alt={title} 
-              className="w-full h-full object-cover object-center filter contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.03]"
+              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80';
               }}
             />
 
+            {/* Notice Overlay Box Positioned at Top of Cover (Above Mountain Peak) */}
+            <div className="absolute top-8 sm:top-10 left-1/2 -translate-x-1/2 w-[92%] z-30 bg-slate-950/92 border border-amber-400/70 rounded-xl p-2 sm:p-2.5 text-center shadow-2xl backdrop-blur-md pointer-events-none">
+              <div className="flex items-center justify-center gap-1 text-amber-300 font-extrabold text-[10px] sm:text-xs mb-0.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span>This is not the Official Cover</span>
+              </div>
+              <p className="text-[9px] sm:text-[10px] leading-tight text-slate-200 font-sans-body">
+                The cover shown here is a temporary display image. Due to a technical issue during the website transfer, the official book cover could not be transferred correctly to the website.
+              </p>
+              <p className="text-[9px] sm:text-[10px] leading-tight text-amber-200/95 font-sans-body mt-1 pt-1 border-t border-amber-400/30">
+                For the <strong className="text-amber-200 font-semibold">official cover of <em>Climbing Toward Healing</em></strong>, visit our social media or view on Amazon.
+              </p>
+            </div>
+
             {/* Realistic 3D Spine (Left Edge Overlay) */}
             {showSpine && (
-              <div className="absolute top-0 bottom-0 left-0 w-4 bg-gradient-to-r from-slate-950 via-amber-950/80 to-transparent border-r border-amber-400/30 z-20 flex flex-col justify-between py-6 text-[8px] text-amber-200/90 font-serif tracking-widest select-none shadow-inner">
-                <span className="rotate-90 origin-center translate-y-4">HEALING</span>
-                <span className="text-center font-bold text-amber-300">♡</span>
-                <span className="rotate-90 origin-center -translate-y-4">EYE</span>
-              </div>
+              <div className="absolute top-0 bottom-0 left-0 w-2.5 bg-gradient-to-r from-slate-950/60 to-transparent border-r border-amber-400/20 z-20" />
             )}
 
             {/* Realistic 3D Page Edge Highlights (Right Edge) */}
-            <div className="absolute top-0 bottom-0 right-0 w-2.5 bg-gradient-to-l from-amber-100/40 via-amber-50/20 to-transparent z-20" />
+            <div className="absolute top-0 bottom-0 right-0 w-2 bg-gradient-to-l from-amber-100/30 to-transparent z-20" />
 
             {/* Dynamic Mouse Glare Shine Effect */}
             <div 
@@ -112,23 +122,17 @@ export const BookCover3D: React.FC<BookCover3DProps> = ({
               }}
             />
 
-            {/* Prominent Centered Disclaimer & Preview Button Badge */}
+            {/* Bottom Preview Button */}
             <button 
               onClick={(e) => {
                 e.stopPropagation();
                 if (onClick) onClick();
               }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[88%] z-30 bg-slate-950/90 hover:bg-amber-500 text-amber-200 hover:text-slate-950 transition-all duration-300 font-sans-body text-xs sm:text-sm font-extrabold tracking-wide px-4 py-3 rounded-2xl shadow-2xl border-2 border-amber-400/70 hover:border-amber-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group/btn backdrop-blur-md text-center"
+              className="absolute bottom-3 left-1/2 -translate-x-1/2 w-[88%] z-30 bg-slate-950/90 hover:bg-amber-500 text-amber-200 hover:text-slate-950 transition-all duration-300 font-sans-body text-xs font-extrabold tracking-wide px-3 py-2 rounded-xl shadow-2xl border border-amber-400/70 hover:border-amber-300 flex items-center justify-center gap-1.5 cursor-pointer group/btn backdrop-blur-md text-center"
               title="Click photo to read Chapter 1 preview"
             >
-              <div className="flex items-center justify-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-400 group-hover/btn:text-slate-950 shrink-0" />
-                <span>This is not the Official Cover</span>
-              </div>
-              <div className="flex items-center justify-center gap-1 text-[11px] sm:text-xs text-amber-300 group-hover/btn:text-slate-950 font-bold border-t border-amber-400/30 pt-1 w-full">
-                <span>Click to Read Preview</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-              </div>
+              <span>Click to Read Preview</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
             </button>
 
 

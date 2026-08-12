@@ -138,11 +138,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <button
                   id="hero-start-climb-button"
                   onClick={onStartClimbClick}
-                  className="relative z-10 w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_25px_rgba(251,191,36,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
+                  className="relative z-10 w-full sm:w-auto px-5.5 py-2.5 sm:px-6 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-sans-body text-xs sm:text-sm font-extrabold tracking-wide shadow-[0_0_20px_rgba(251,191,36,0.5)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
                 >
-                  <span className="text-lg">🧗</span>
+                  <span className="text-base">🧗</span>
                   <span className="uppercase tracking-wider">Start the Climb</span>
-                  <Sparkles className="w-4.5 h-4.5 text-slate-950 animate-spin-slow" />
+                  <Sparkles className="w-4 h-4 text-slate-950 animate-spin-slow" />
                 </button>
               </div>
 
@@ -154,11 +154,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <button
                   id="hero-the-message-button"
                   onClick={onTheMessageClick}
-                  className="relative z-10 w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 via-amber-500 to-amber-600 hover:from-rose-500 hover:to-amber-400 text-white font-sans-body text-sm font-extrabold tracking-wide shadow-[0_0_25px_rgba(244,63,94,0.6)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
+                  className="relative z-10 w-full sm:w-auto px-5.5 py-2.5 sm:px-6 sm:py-2.5 rounded-xl bg-gradient-to-r from-rose-600 via-amber-500 to-amber-600 hover:from-rose-500 hover:to-amber-400 text-white font-sans-body text-xs sm:text-sm font-extrabold tracking-wide shadow-[0_0_20px_rgba(244,63,94,0.5)] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border-2 border-white cursor-pointer"
                 >
-                  <span className="text-lg">❤️</span>
+                  <span className="text-base">❤️</span>
                   <span className="uppercase tracking-wider">THE MESSAGE</span>
-                  <Sparkles className="w-4.5 h-4.5 text-white animate-spin-slow" />
+                  <Sparkles className="w-4 h-4 text-white animate-spin-slow" />
                 </button>
               </div>
 
