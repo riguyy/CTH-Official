@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Newspaper, Calendar, Sparkles, ArrowRight, ExternalLink, Megaphone, Video, BookOpen, Heart, X, CheckCircle2 } from 'lucide-react';
+import { Newspaper, Calendar, Sparkles, ArrowRight, ExternalLink, Megaphone, Video, BookOpen, Heart, X, CheckCircle2, HelpCircle, Check, Award } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface NewsUpdatesBoardSectionProps {
@@ -26,6 +26,7 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
   onReadPreviewClick,
 }) => {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+  const [triviaGuess, setTriviaGuess] = useState<string | null>(null);
 
   const newsItems: NewsItem[] = [
     {
@@ -38,6 +39,28 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
       fullText: 'The official Climbing Toward Healing website is now live! This new online home brings the story, message, and journey of Climbing Toward Healing together in one place. Visitors can learn more about the book, discover its purpose, explore updates, and stay connected as the journey continues. This is only the beginning.',
       ctaText: 'Read Full Announcement',
       icon: Sparkles,
+    },
+    {
+      id: 'trivia-thursday',
+      title: '🧠📚 Trivia Thursday!',
+      date: 'Every Thursday',
+      badge: 'Weekly Community Trivia',
+      isFeatured: true,
+      summary: 'Every Thursday, test your Climbing Toward Healing knowledge! 🧗‍♀️❤️\n\n📖 Today’s Question: How long did it take to write Climbing Toward Healing?\n\nA. 1 year | B. 3 years | C. 6 years | D. 10 years',
+      fullText: 'Every Thursday, test your Climbing Toward Healing knowledge! 🧗‍♀️❤️\n\n🎉 Last Week’s Answer: B — the challenges and steps involved in moving toward healing.\n\n📖 Today’s Question: How long did it take to write Climbing Toward Healing?\n\nA. 1 year\nB. 3 years\nC. 6 years\nD. 10 years\n\n🔎 Think you know? Find a hint on the official website and make your guess!',
+      ctaText: 'Take the Trivia Quiz',
+      icon: HelpCircle,
+    },
+    {
+      id: 'author-clarification',
+      title: '📖✨ A MESSAGE FROM THE AUTHOR ✨📖',
+      date: 'August 13, 2026',
+      badge: 'Author Clarification',
+      isFeatured: false,
+      summary: 'As the Social Media Manager, I wanted to take a moment to share a little clarification before the author’s message below. ❤️ Climbing Toward Healing is a story about healing, strength, and finding light after difficult experiences...',
+      fullText: '📖✨ A MESSAGE FROM THE AUTHOR ✨📖\n\nAs the Social Media Manager, I wanted to take a moment to share a little clarification before the author’s message below. ❤️ Climbing Toward Healing is, a story about healing, strength, and finding light after difficult experiences. The details throughout the book are there to help readers understand the author’s journey, the environment she grew up in, and the experiences that shaped her. Recently, there has been some misunderstanding surrounding one particular detail. Because of that, the author felt it was important to personally clarify what she meant. — Her intention is simply to make sure that someone who played a loving and important role in her life is not mistakenly associated with something they had absolutely no part in. Most importantly, this book is about healing. It is about sharing a difficult journey, finding strength through it, and showing that there can be light after darkness. ❤️ Thank you to everyone who takes the time to read this story, to listen with an open heart, to be positive, to show kindness, to climb towards healing. ❤️🩹\n\n——————————————————\n\nThe Message From the Author:\nI’d like to offer a clarification about my book. Some readers have misunderstood a part where I described the home we grew up in and mentioned that my uncle lived downstairs. That detail was included simply to set the scene and give context to the type of housing and environment we lived in. To be absolutely clear, the uncle who lived downstairs was not the person who harmed me. In fact, he was like a second father to me. He loved, protected, and cared for me, and I will always be grateful for the role he played in my life. I want to clarify that when I referred to “the evil downstairs,” I was not referring to the uncle who lived downstairs. That description was meant to establish the setting of the home where I grew up and to describe the darkness and trauma that existed there—not the people who lived in that space. That uncle was like a second father to me and was a source of love, safety, and support in my life. The “evil” I wrote about was the abuse and its impact, not him. I wanted to make this clarification because I never want an innocent person to be misunderstood or associated with something they had no part in. Thank you to everyone who has read my story with compassion and understanding.\n\n— 📝✨ Jacqueline Eye ✨📝 Author of Climbing Toward Healing',
+      ctaText: 'Read Full Message',
+      icon: Heart,
     },
     {
       id: 'journey-behind',
@@ -152,12 +175,53 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                     {item.title}
                   </h3>
 
-                  {/* Concise 2-3 sentence summary */}
-                  <p className={`text-xs sm:text-sm font-sans-body leading-relaxed ${
-                    item.isFeatured ? 'text-slate-300' : 'text-slate-600'
-                  }`}>
-                    {item.summary}
-                  </p>
+                  {/* Custom rendering for Author Clarification vs Trivia Thursday vs Standard News */}
+                  {item.id === 'author-clarification' ? (
+                    <div className="space-y-2.5 pt-1">
+                      <p className={`text-xs sm:text-sm font-sans-body leading-relaxed ${
+                        item.isFeatured ? 'text-amber-200/90' : 'text-slate-600'
+                      }`}>
+                        As the Social Media Manager, I wanted to take a moment to share a little clarification before the author’s message below. ❤️ <em>Climbing Toward Healing</em> is a story about healing, strength, and finding light.
+                      </p>
+                      <div className={`p-3 rounded-xl border text-xs font-sans-body italic ${
+                        item.isFeatured
+                          ? 'bg-slate-950/80 border-amber-400/30 text-amber-100/90'
+                          : 'bg-amber-50/80 border-amber-200/80 text-slate-800'
+                      }`}>
+                        "I’d like to offer a clarification about my book. Some readers have misunderstood a part where I described the home we grew up in..."
+                      </div>
+                    </div>
+                  ) : item.id === 'trivia-thursday' ? (
+                    <div className="space-y-3 pt-1">
+                      <p className="text-xs sm:text-sm font-sans-body leading-relaxed text-amber-200/90">
+                        Every Thursday, test your <strong>Climbing Toward Healing</strong> knowledge! 🧗‍♀️❤️
+                      </p>
+                      
+                      <div className="p-3 rounded-xl bg-slate-950/80 border border-amber-400/30 text-xs font-sans-body space-y-1.5">
+                        <span className="text-amber-400 font-bold block text-[11px] uppercase tracking-wider">Today's Question:</span>
+                        <p className="text-amber-100 font-medium italic">
+                          How long did it take to write <em>Climbing Toward Healing</em>?
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 pt-1 text-[11px] font-bold text-amber-300/80">
+                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">A. 1 yr</span>
+                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">B. 3 yrs</span>
+                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">C. 6 yrs</span>
+                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">D. 10 yrs</span>
+                        </div>
+                      </div>
+
+                      <p className="text-[11px] text-amber-300/70 italic">
+                        🔎 Think you know? Find a hint on the website and make your guess!
+                      </p>
+                    </div>
+                  ) : (
+                    /* Concise 2-3 sentence summary */
+                    <p className={`text-xs sm:text-sm font-sans-body leading-relaxed ${
+                      item.isFeatured ? 'text-slate-300' : 'text-slate-600'
+                    }`}>
+                      {item.summary}
+                    </p>
+                  )}
                 </div>
 
                 {/* Footer Action Button */}
@@ -168,6 +232,9 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                         onBuyClick();
                       } else {
                         setSelectedNews(item);
+                        if (item.id === 'trivia-thursday') {
+                          setTriviaGuess(null);
+                        }
                       }
                     }}
                     className={`inline-flex items-center gap-1.5 text-xs font-bold transition-all cursor-pointer ${
@@ -176,13 +243,21 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                         : 'text-amber-800 group-hover:text-amber-900 group-hover:translate-x-1'
                     }`}
                   >
-                    <span>{item.id === 'more-ways-to-read' ? 'Get the Book' : 'Read More'}</span>
+                    <span>
+                      {item.id === 'more-ways-to-read' 
+                        ? 'Get the Book' 
+                        : item.id === 'trivia-thursday'
+                        ? 'Take the Quiz'
+                        : item.id === 'author-clarification'
+                        ? 'Read Full Message'
+                        : 'Read More'}
+                    </span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
 
                   {item.isFeatured && (
                     <span className="text-[10px] text-amber-300/60 font-serif italic">
-                      Pinned Release
+                      {item.id === 'trivia-thursday' ? 'Weekly Feature' : 'Pinned Release'}
                     </span>
                   )}
                 </div>
@@ -263,9 +338,164 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
 
             <div className="w-full h-[1px] bg-slate-800" />
 
-            <p className="text-sm text-slate-200 font-sans-body leading-relaxed space-y-3">
-              {selectedNews.fullText}
-            </p>
+            {selectedNews.id === 'author-clarification' ? (
+              <div className="space-y-6">
+                {/* Social Media Manager Note Box */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-400/40 space-y-2.5">
+                  <div className="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
+                    <Heart className="w-4 h-4 text-amber-400" />
+                    <span>Note from Social Media Manager</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-amber-100 font-sans-body leading-relaxed">
+                    As the Social Media Manager, I wanted to take a moment to share a little clarification before the author’s message below. ❤️ <em>Climbing Toward Healing</em> is a story about healing, strength, and finding light after difficult experiences. The details throughout the book are there to help readers understand the author’s journey, the environment she grew up in, and the experiences that shaped her.
+                  </p>
+                  <p className="text-xs sm:text-sm text-amber-100/90 font-sans-body leading-relaxed">
+                    Recently, there has been some misunderstanding surrounding one particular detail. Because of that, the author felt it was important to personally clarify what she meant. — Her intention is simply to make sure that someone who played a loving and important role in her life is not mistakenly associated with something they had absolutely no part in.
+                  </p>
+                  <p className="text-xs sm:text-sm text-amber-100 font-sans-body leading-relaxed">
+                    Most importantly, this book is about healing. It is about sharing a difficult journey, finding strength through it, and showing that there can be light after darkness. ❤️ Thank you to everyone who takes the time to read this story, to listen with an open heart, to be positive, to show kindness, to climb towards healing. ❤️🩹
+                  </p>
+                </div>
+
+                {/* Divider Line */}
+                <div className="relative flex py-2 items-center">
+                  <div className="flex-grow border-t border-amber-400/30"></div>
+                  <span className="flex-shrink mx-4 text-xs font-serif italic text-amber-400">The Message From the Author</span>
+                  <div className="flex-grow border-t border-amber-400/30"></div>
+                </div>
+
+                {/* The Message From the Author Box */}
+                <div className="p-5 sm:p-6 rounded-2xl bg-slate-950/90 border-2 border-amber-400/50 space-y-4 shadow-xl">
+                  <h4 className="font-serif-title text-lg font-bold text-amber-200">
+                    The Message From the Author
+                  </h4>
+
+                  <div className="space-y-3 text-xs sm:text-sm text-slate-200 font-sans-body leading-relaxed">
+                    <p>
+                      I’d like to offer a clarification about my book. Some readers have misunderstood a part where I described the home we grew up in and mentioned that my uncle lived downstairs. That detail was included simply to set the scene and give context to the type of housing and environment we lived in. To be absolutely clear, the uncle who lived downstairs was not the person who harmed me. In fact, he was like a second father to me. He loved, protected, and cared for me, and I will always be grateful for the role he played in my life.
+                    </p>
+                    <p>
+                      I want to clarify that when I referred to “the evil downstairs,” I was not referring to the uncle who lived downstairs. That description was meant to establish the setting of the home where I grew up and to describe the darkness and trauma that existed there—not the people who lived in that space. That uncle was like a second father to me and was a source of love, safety, and support in my life. The “evil” I wrote about was the abuse and its impact, not him.
+                    </p>
+                    <p>
+                      I wanted to make this clarification because I never want an innocent person to be misunderstood or associated with something they had no part in. Thank you to everyone who has read my story with compassion and understanding.
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-amber-400/30 text-right">
+                    <p className="font-serif italic text-amber-300 font-bold text-sm">
+                      — 📝✨ Jacqueline Eye ✨📝
+                    </p>
+                    <p className="text-xs text-amber-400/80 font-sans-body">
+                      Author of <em>Climbing Toward Healing</em>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : selectedNews.id === 'trivia-thursday' ? (
+              <div className="space-y-6">
+                <p className="text-sm sm:text-base font-sans-body text-amber-100 font-medium leading-relaxed">
+                  Every Thursday, test your <strong>Climbing Toward Healing</strong> knowledge! 🧗‍♀️❤️
+                </p>
+
+                {/* Last Week's Answer Callout */}
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-sans-body leading-relaxed">
+                  <span className="font-bold text-amber-300 block mb-1">🎉 Last Week’s Answer:</span>
+                  <p className="text-slate-200">
+                    <strong>B</strong> — the challenges and steps involved in moving toward healing.
+                  </p>
+                </div>
+
+                {/* Today's Question & Options */}
+                <div className="p-5 rounded-2xl bg-slate-950/80 border-2 border-amber-400/40 space-y-4">
+                  <div className="flex items-start gap-2.5">
+                    <HelpCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-xs font-serif uppercase tracking-wider text-amber-400 font-bold block mb-1">
+                        Today’s Question
+                      </span>
+                      <h4 className="font-serif-title text-base sm:text-lg font-bold text-amber-100">
+                        How long did it take to write <em>Climbing Toward Healing</em>?
+                      </h4>
+                    </div>
+                  </div>
+
+                  {/* Options List */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                    {[
+                      { key: 'A', text: '1 year' },
+                      { key: 'B', text: '3 years' },
+                      { key: 'C', text: '6 years' },
+                      { key: 'D', text: '10 years' },
+                    ].map((opt) => {
+                      const isSelected = triviaGuess === opt.key;
+                      const isCorrect = opt.key === 'C';
+                      return (
+                        <button
+                          key={opt.key}
+                          onClick={() => setTriviaGuess(opt.key)}
+                          className={`p-3 rounded-xl border text-left text-xs sm:text-sm font-sans-body font-bold transition-all flex items-center justify-between cursor-pointer ${
+                            isSelected
+                              ? isCorrect
+                                ? 'bg-emerald-950/90 border-emerald-400 text-emerald-200 shadow-lg'
+                                : 'bg-amber-950/90 border-amber-400 text-amber-200 shadow-lg'
+                              : 'bg-slate-900/90 border-slate-700 hover:border-amber-400/60 text-slate-200 hover:bg-slate-800'
+                          }`}
+                        >
+                          <span><strong>{opt.key}.</strong> {opt.text}</span>
+                          {isSelected && (
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                              isCorrect ? 'bg-emerald-500 text-slate-950' : 'bg-amber-500 text-slate-950'
+                            }`}>
+                              {isCorrect ? 'Correct! 🎉' : 'Selected'}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Feedback on selection */}
+                  {triviaGuess && (
+                    <div className={`p-4 rounded-xl border text-xs sm:text-sm font-sans-body leading-relaxed animate-fade-in ${
+                      triviaGuess === 'C'
+                        ? 'bg-emerald-950/80 border-emerald-400/60 text-emerald-200'
+                        : 'bg-amber-950/80 border-amber-400/60 text-amber-200'
+                    }`}>
+                      {triviaGuess === 'C' ? (
+                        <div className="flex items-start gap-2">
+                          <Award className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-emerald-300 text-sm mb-1">🎉 Spot On! Correct Answer: C (6 years)</p>
+                            <p>The writing and publishing journey for <em>Climbing Toward Healing</em> spanned 6 years (2020–2026), beginning during the pandemic in 2020 all the way to its official release!</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-start gap-2">
+                          <Sparkles className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="font-bold text-amber-300 text-sm mb-1">Good guess! Try again or find the hint!</p>
+                            <p>🔎 <strong>Hint:</strong> Check out the <em>Book Updates Timeline</em> on this website to see when the climb first started in 2020!</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Hint Callout */}
+                <div className="p-3.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-sans-body flex items-center gap-2">
+                  <span className="text-base">🔎</span>
+                  <p>
+                    <strong>Think you know?</strong> Find a hint on the official website and make your guess!
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-slate-200 font-sans-body leading-relaxed space-y-3 whitespace-pre-line">
+                {selectedNews.fullText}
+              </p>
+            )}
 
             <div className="pt-4 border-t border-slate-800 flex justify-end gap-3">
               <button
