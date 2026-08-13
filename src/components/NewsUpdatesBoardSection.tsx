@@ -314,7 +314,11 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
       {/* News Detail Modal */}
       {selectedNews && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border-2 border-amber-400/50 text-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative space-y-6">
+          <div className={`bg-slate-900 border-2 border-amber-400/50 text-white shadow-2xl relative overflow-y-auto max-h-[90vh] transition-all ${
+            selectedNews.id === 'trivia-thursday'
+              ? 'max-w-md w-full p-5 sm:p-6 rounded-3xl space-y-4'
+              : 'max-w-xl w-full p-6 sm:p-8 rounded-2xl space-y-6'
+          }`}>
             
             <button
               onClick={() => setSelectedNews(null)}
@@ -323,11 +327,13 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
               <X className="w-5 h-5" />
             </button>
 
-            <div className="space-y-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sans font-bold bg-amber-500 text-slate-950">
+            <div className="space-y-1.5 pr-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-sans font-bold bg-amber-500 text-slate-950">
                 {selectedNews.badge}
               </span>
-              <h3 className="font-serif-title text-2xl font-bold text-amber-100">
+              <h3 className={`font-serif-title font-bold text-amber-100 ${
+                selectedNews.id === 'trivia-thursday' ? 'text-xl sm:text-2xl' : 'text-2xl'
+              }`}>
                 {selectedNews.title}
               </h3>
               <p className="text-xs text-amber-300/80 font-sans-body flex items-center gap-1.5">
@@ -393,35 +399,35 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                 </div>
               </div>
             ) : selectedNews.id === 'trivia-thursday' ? (
-              <div className="space-y-6">
-                <p className="text-sm sm:text-base font-sans-body text-amber-100 font-medium leading-relaxed">
+              <div className="space-y-3.5">
+                <p className="text-xs sm:text-sm font-sans-body text-amber-100 font-medium leading-relaxed">
                   Every Thursday, test your <strong>Climbing Toward Healing</strong> knowledge! 🧗‍♀️❤️
                 </p>
 
                 {/* Last Week's Answer Callout */}
-                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-sans-body leading-relaxed">
-                  <span className="font-bold text-amber-300 block mb-1">🎉 Last Week’s Answer:</span>
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-200 text-xs font-sans-body leading-relaxed">
+                  <span className="font-bold text-amber-300 block mb-0.5">🎉 Last Week’s Answer:</span>
                   <p className="text-slate-200">
                     <strong>B</strong> — the challenges and steps involved in moving toward healing.
                   </p>
                 </div>
 
                 {/* Today's Question & Options */}
-                <div className="p-5 rounded-2xl bg-slate-950/80 border-2 border-amber-400/40 space-y-4">
-                  <div className="flex items-start gap-2.5">
-                    <HelpCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <div className="p-4 rounded-2xl bg-slate-950/80 border-2 border-amber-400/40 space-y-3">
+                  <div className="flex items-start gap-2">
+                    <HelpCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                     <div>
-                      <span className="text-xs font-serif uppercase tracking-wider text-amber-400 font-bold block mb-1">
+                      <span className="text-[10px] font-serif uppercase tracking-wider text-amber-400 font-bold block mb-0.5">
                         Today’s Question
                       </span>
-                      <h4 className="font-serif-title text-base sm:text-lg font-bold text-amber-100">
+                      <h4 className="font-serif-title text-sm sm:text-base font-bold text-amber-100">
                         How long did it take to write <em>Climbing Toward Healing</em>?
                       </h4>
                     </div>
                   </div>
 
                   {/* Options List */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                  <div className="grid grid-cols-2 gap-2 pt-1">
                     {[
                       { key: 'A', text: '1 year' },
                       { key: 'B', text: '3 years' },
@@ -434,7 +440,7 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                         <button
                           key={opt.key}
                           onClick={() => setTriviaGuess(opt.key)}
-                          className={`p-3 rounded-xl border text-left text-xs sm:text-sm font-sans-body font-bold transition-all flex items-center justify-between cursor-pointer ${
+                          className={`p-2.5 rounded-xl border text-left text-xs font-sans-body font-bold transition-all flex items-center justify-between cursor-pointer ${
                             isSelected
                               ? isCorrect
                                 ? 'bg-emerald-950/90 border-emerald-400 text-emerald-200 shadow-lg'
@@ -444,7 +450,7 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                         >
                           <span><strong>{opt.key}.</strong> {opt.text}</span>
                           {isSelected && (
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                            <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${
                               isCorrect ? 'bg-emerald-500 text-slate-950' : 'bg-amber-500 text-slate-950'
                             }`}>
                               {isCorrect ? 'Correct! 🎉' : 'Selected'}
@@ -457,25 +463,25 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
 
                   {/* Feedback on selection */}
                   {triviaGuess && (
-                    <div className={`p-4 rounded-xl border text-xs sm:text-sm font-sans-body leading-relaxed animate-fade-in ${
+                    <div className={`p-3 rounded-xl border text-xs font-sans-body leading-relaxed animate-fade-in ${
                       triviaGuess === 'C'
                         ? 'bg-emerald-950/80 border-emerald-400/60 text-emerald-200'
                         : 'bg-amber-950/80 border-amber-400/60 text-amber-200'
                     }`}>
                       {triviaGuess === 'C' ? (
                         <div className="flex items-start gap-2">
-                          <Award className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                          <Award className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                           <div>
-                            <p className="font-bold text-emerald-300 text-sm mb-1">🎉 Spot On! Correct Answer: C (6 years)</p>
-                            <p>The writing and publishing journey for <em>Climbing Toward Healing</em> spanned 6 years (2020–2026), beginning during the pandemic in 2020 all the way to its official release!</p>
+                            <p className="font-bold text-emerald-300 text-xs mb-0.5">🎉 Spot On! Correct Answer: C (6 years)</p>
+                            <p className="text-[11px] leading-snug">The writing and publishing journey for <em>Climbing Toward Healing</em> spanned 6 years (2020–2026), beginning during the pandemic in 2020 all the way to its official release!</p>
                           </div>
                         </div>
                       ) : (
                         <div className="flex items-start gap-2">
-                          <Sparkles className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                          <Sparkles className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                           <div>
-                            <p className="font-bold text-amber-300 text-sm mb-1">Good guess! Try again or find the hint!</p>
-                            <p>🔎 <strong>Hint:</strong> Check out the <em>Book Updates Timeline</em> on this website to see when the climb first started in 2020!</p>
+                            <p className="font-bold text-amber-300 text-xs mb-0.5">Good guess! Try again or find the hint!</p>
+                            <p className="text-[11px] leading-snug">🔎 <strong>Hint:</strong> Check out the <em>Book Updates Timeline</em> on this website to see when the climb first started in 2020!</p>
                           </div>
                         </div>
                       )}
@@ -484,9 +490,9 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                 </div>
 
                 {/* Hint Callout */}
-                <div className="p-3.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-sans-body flex items-center gap-2">
-                  <span className="text-base">🔎</span>
-                  <p>
+                <div className="p-2.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-sans-body flex items-center gap-2">
+                  <span className="text-sm">🔎</span>
+                  <p className="text-[11px]">
                     <strong>Think you know?</strong> Find a hint on the official website and make your guess!
                   </p>
                 </div>
