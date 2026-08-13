@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, Send, Check, Sparkles, BookOpen } from 'lucide-react';
+import { Heart, Send, Check, Sparkles, BookOpen, Mail } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface FooterProps {
@@ -150,31 +150,50 @@ export const Footer: React.FC<FooterProps> = ({
               <li><a href="#where-to-buy" className="hover:text-amber-300 transition-colors">Where to Buy</a></li>
               <li><a href="#news-updates" className="hover:text-amber-300 transition-colors font-semibold text-amber-300">News & Updates Board</a></li>
               <li><a href="#our-team" className="hover:text-amber-300 transition-colors">Our Team</a></li>
+              <li><a href="#contact" className="hover:text-amber-300 transition-colors">Contact Us</a></li>
               <li><a href="#quotes" className="hover:text-amber-300 transition-colors">Book Quotes</a></li>
               <li><a href="#times-square" className="hover:text-amber-300 transition-colors">Times Square Billboard</a></li>
             </ul>
           </div>
 
-          {/* Col 3: Buy & Media */}
-          <div className="space-y-3">
-            <p className="font-serif-title font-bold text-amber-200 text-sm">
-              Get the Book
-            </p>
-            <ul className="space-y-2 text-xs text-slate-400">
-              <li>
-                <a 
-                  href={book.buyLinks.amazon} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="hover:text-amber-300 transition-colors font-semibold text-amber-400"
-                >
-                  Buy on Amazon (Kindle/Paperback) →
-                </a>
-              </li>
-              <li><button onClick={onReadPreviewClick} className="hover:text-amber-300 transition-colors text-left">Read Free Chapter Excerpt</button></li>
-              <li><a href="#where-to-buy" className="hover:text-amber-300 transition-colors">Where to Buy</a></li>
-              <li><a href="#community" className="hover:text-amber-300 transition-colors">Community Encouragement Wall</a></li>
-            </ul>
+          {/* Col 3: Buy & Media & Contact */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <p className="font-serif-title font-bold text-amber-200 text-sm">
+                Get the Book
+              </p>
+              <ul className="space-y-2 text-xs text-slate-400">
+                <li>
+                  <a 
+                    href={book.buyLinks.amazon} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-amber-300 transition-colors font-semibold text-amber-400"
+                  >
+                    Buy on Amazon (Kindle/Paperback) →
+                  </a>
+                </li>
+                <li><button onClick={onReadPreviewClick} className="hover:text-amber-300 transition-colors text-left cursor-pointer">Read Free Chapter Excerpt</button></li>
+                <li><a href="#where-to-buy" className="hover:text-amber-300 transition-colors">Where to Buy</a></li>
+                <li><a href="#community" className="hover:text-amber-300 transition-colors">Community Encouragement Wall</a></li>
+              </ul>
+            </div>
+
+            <div className="pt-3 border-t border-slate-900 space-y-2">
+              <p className="font-serif-title font-bold text-amber-200 text-sm flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-amber-400" />
+                <span>Contact Us</span>
+              </p>
+              <p className="text-[11px] text-slate-400">
+                For questions, press, or inquiries:
+              </p>
+              <a
+                href="mailto:climbingtowardhealing@gmail.com"
+                className="inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-amber-200 font-medium transition-colors break-all"
+              >
+                <span>climbingtowardhealing@gmail.com</span>
+              </a>
+            </div>
           </div>
 
         </div>

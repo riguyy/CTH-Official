@@ -35,6 +35,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
     { label: 'News & Updates', href: '#news-updates' },
     { label: 'Community', href: '#community' },
     { label: 'Our Team', href: '#our-team' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   return (

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Sparkles, Megaphone, Award, BookOpen } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, Megaphone, Award, BookOpen, Mail, Copy, Check } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface OurTeamSectionProps {
@@ -7,6 +7,13 @@ interface OurTeamSectionProps {
 }
 
 export const OurTeamSection: React.FC<OurTeamSectionProps> = ({ book }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('climbingtowardhealing@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
   const teamMembers = [
     {
       name: book.author,
@@ -108,6 +115,52 @@ export const OurTeamSection: React.FC<OurTeamSectionProps> = ({ book }) => {
 
             </div>
           ))}
+        </div>
+
+        {/* Contact & Inquiries Banner */}
+        <div id="contact" className="pt-8 border-t border-amber-900/15 scroll-mt-24">
+          <div className="bg-slate-900 border-2 border-amber-400/40 rounded-3xl p-6 sm:p-8 text-center text-white shadow-2xl max-w-2xl mx-auto space-y-4 relative overflow-hidden">
+            <div className="flex items-center justify-center gap-2 text-amber-400 font-serif text-xs uppercase tracking-[0.2em]">
+              <Mail className="w-4 h-4 text-amber-400" />
+              <span>Contact & Inquiries</span>
+            </div>
+
+            <h3 className="font-serif-title text-2xl sm:text-3xl font-bold text-amber-100">
+              Get in Touch with Us
+            </h3>
+
+            <p className="font-sans-body text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
+              Have questions, media inquiries, or want to share your thoughts with our team? Send us an email:
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              <a
+                href="mailto:climbingtowardhealing@gmail.com"
+                className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-500/20 hover:scale-105 transition-all cursor-pointer"
+              >
+                <Mail className="w-4 h-4 text-slate-950" />
+                <span>climbingtowardhealing@gmail.com</span>
+              </a>
+
+              <button
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-1.5 px-3.5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/30 text-xs font-bold transition-all cursor-pointer"
+                title="Copy email to clipboard"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span className="text-emerald-300">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
