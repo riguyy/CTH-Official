@@ -47,7 +47,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span><strong>Published:</strong> August 10, 2026</span>
               <span className="text-amber-400/40">•</span>
               <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span><strong>Last Updated:</strong> August 13th, 2026</span>
+              <span><strong>Last Updated:</strong> August 16th, 2026</span>
             </div>
 
             {/* Times Square Billboard Announcement Badge */}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Newspaper, Calendar, Sparkles, ArrowRight, ExternalLink, Megaphone, Video, BookOpen, Heart, X, CheckCircle2, HelpCircle, Check, Award } from 'lucide-react';
+import { Newspaper, Calendar, Sparkles, ArrowRight, ExternalLink, Megaphone, Video, BookOpen, Heart, X, CheckCircle2, HelpCircle, Check, Award, Sun } from 'lucide-react';
 import { BookDetails } from '../types';
 
 interface NewsUpdatesBoardSectionProps {
@@ -41,11 +41,22 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
       icon: Sparkles,
     },
     {
+      id: 'sunday-reminder',
+      title: '🌄 Sunday Reminder 🌄',
+      date: 'August 16, 2026',
+      badge: 'Sunday Reminder',
+      isFeatured: true,
+      summary: 'Healing doesn’t always happen all at once. Sometimes, it happens one small step, one difficult day, and one moment of hope at a time.\n\nWherever you are in your journey, remember that moving forward doesn’t have to mean having everything figured out.\n\nKeep climbing. 🧗‍♀️🤍\n\nClimbing Toward Healing — available now.',
+      fullText: '🌄 Sunday Reminder 🌄\n\nHealing doesn’t always happen all at once. Sometimes, it happens one small step, one difficult day, and one moment of hope at a time.\n\nWherever you are in your journey, remember that moving forward doesn’t have to mean having everything figured out.\n\nKeep climbing. 🧗‍♀️🤍\n\nClimbing Toward Healing — available now.',
+      ctaText: 'Read Reminder',
+      icon: Sun,
+    },
+    {
       id: 'trivia-thursday',
       title: '🧠📚 Trivia Thursday!',
       date: 'Every Thursday',
       badge: 'Weekly Community Trivia',
-      isFeatured: true,
+      isFeatured: false,
       summary: 'Every Thursday, test your Climbing Toward Healing knowledge! 🧗‍♀️❤️\n\n📖 Today’s Question: How long did it take to write Climbing Toward Healing?\n\nA. 1 year | B. 3 years | C. 6 years | D. 10 years',
       fullText: 'Every Thursday, test your Climbing Toward Healing knowledge! 🧗‍♀️❤️\n\n🎉 Last Week’s Answer: B — the challenges and steps involved in moving toward healing.\n\n📖 Today’s Question: How long did it take to write Climbing Toward Healing?\n\nA. 1 year\nB. 3 years\nC. 6 years\nD. 10 years\n\n🔎 Think you know? Find a hint on the official website and make your guess!',
       ctaText: 'Take the Trivia Quiz',
@@ -193,25 +204,62 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                     </div>
                   ) : item.id === 'trivia-thursday' ? (
                     <div className="space-y-3 pt-1">
-                      <p className="text-xs sm:text-sm font-sans-body leading-relaxed text-amber-200/90">
+                      <p className={`text-xs sm:text-sm font-sans-body leading-relaxed ${
+                        item.isFeatured ? 'text-amber-200/90' : 'text-slate-700'
+                      }`}>
                         Every Thursday, test your <strong>Climbing Toward Healing</strong> knowledge! 🧗‍♀️❤️
                       </p>
                       
-                      <div className="p-3 rounded-xl bg-slate-950/80 border border-amber-400/30 text-xs font-sans-body space-y-1.5">
-                        <span className="text-amber-400 font-bold block text-[11px] uppercase tracking-wider">Today's Question:</span>
-                        <p className="text-amber-100 font-medium italic">
+                      <div className={`p-3 rounded-xl border text-xs font-sans-body space-y-1.5 ${
+                        item.isFeatured
+                          ? 'bg-slate-950/80 border-amber-400/30 text-amber-100'
+                          : 'bg-amber-50/80 border-amber-200/80 text-slate-800'
+                      }`}>
+                        <span className={`font-bold block text-[11px] uppercase tracking-wider ${
+                          item.isFeatured ? 'text-amber-400' : 'text-amber-800'
+                        }`}>Today's Question:</span>
+                        <p className={`font-medium italic ${
+                          item.isFeatured ? 'text-amber-100' : 'text-slate-900'
+                        }`}>
                           How long did it take to write <em>Climbing Toward Healing</em>?
                         </p>
-                        <div className="flex flex-wrap gap-1.5 pt-1 text-[11px] font-bold text-amber-300/80">
-                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">A. 1 yr</span>
-                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">B. 3 yrs</span>
-                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">C. 6 yrs</span>
-                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700">D. 10 yrs</span>
+                        <div className="flex flex-wrap gap-1.5 pt-1 text-[11px] font-bold">
+                          <span className={`px-2 py-0.5 rounded border ${
+                            item.isFeatured ? 'bg-slate-900 border-slate-700 text-amber-300/80' : 'bg-white border-amber-300 text-amber-900'
+                          }`}>A. 1 yr</span>
+                          <span className={`px-2 py-0.5 rounded border ${
+                            item.isFeatured ? 'bg-slate-900 border-slate-700 text-amber-300/80' : 'bg-white border-amber-300 text-amber-900'
+                          }`}>B. 3 yrs</span>
+                          <span className={`px-2 py-0.5 rounded border ${
+                            item.isFeatured ? 'bg-slate-900 border-slate-700 text-amber-300/80' : 'bg-white border-amber-300 text-amber-900'
+                          }`}>C. 6 yrs</span>
+                          <span className={`px-2 py-0.5 rounded border ${
+                            item.isFeatured ? 'bg-slate-900 border-slate-700 text-amber-300/80' : 'bg-white border-amber-300 text-amber-900'
+                          }`}>D. 10 yrs</span>
                         </div>
                       </div>
 
-                      <p className="text-[11px] text-amber-300/70 italic">
+                      <p className={`text-[11px] italic ${
+                        item.isFeatured ? 'text-amber-300/70' : 'text-slate-500'
+                      }`}>
                         🔎 Think you know? Find a hint on the website and make your guess!
+                      </p>
+                    </div>
+                  ) : item.id === 'sunday-reminder' ? (
+                    <div className="space-y-2.5 pt-1">
+                      <p className="text-xs sm:text-sm font-sans-body leading-relaxed text-amber-100/90">
+                        Healing doesn’t always happen all at once. Sometimes, it happens one small step, one difficult day, and one moment of hope at a time.
+                      </p>
+                      <div className="p-3 rounded-xl bg-slate-950/80 border border-amber-400/30 text-xs font-sans-body space-y-2 text-amber-100">
+                        <p className="text-slate-300 leading-relaxed">
+                          Wherever you are in your journey, remember that moving forward doesn’t have to mean having everything figured out.
+                        </p>
+                        <p className="font-bold text-amber-300 flex items-center gap-1">
+                          Keep climbing. 🧗‍♀️🤍
+                        </p>
+                      </div>
+                      <p className="text-[11px] text-amber-300/80 font-serif italic pt-1">
+                        Climbing Toward Healing — available now.
                       </p>
                     </div>
                   ) : (
@@ -495,6 +543,46 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                   <p className="text-[11px]">
                     <strong>Think you know?</strong> Find a hint on the official website and make your guess!
                   </p>
+                </div>
+              </div>
+            ) : selectedNews.id === 'sunday-reminder' ? (
+              <div className="space-y-5">
+                <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-950 to-slate-900 border-2 border-amber-400/50 space-y-4 shadow-xl text-amber-100">
+                  <div className="flex items-center gap-2 text-amber-400 font-serif text-xs font-bold uppercase tracking-widest">
+                    <Sun className="w-4 h-4 text-amber-400 animate-pulse" />
+                    <span>Weekly Reflection — August 16, 2026</span>
+                  </div>
+
+                  <p className="text-sm sm:text-base font-sans-body leading-relaxed text-slate-200">
+                    Healing doesn’t always happen all at once. Sometimes, it happens one small step, one difficult day, and one moment of hope at a time.
+                  </p>
+
+                  <p className="text-sm sm:text-base font-sans-body leading-relaxed text-slate-200">
+                    Wherever you are in your journey, remember that moving forward doesn’t have to mean having everything figured out.
+                  </p>
+
+                  <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-400/40 text-center">
+                    <p className="font-serif-title text-xl font-bold text-amber-300">
+                      Keep climbing. 🧗‍♀️🤍
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-amber-400/80 font-serif italic text-right pt-2 border-t border-slate-800">
+                    Climbing Toward Healing — available now.
+                  </p>
+                </div>
+
+                <div className="flex justify-center pt-1">
+                  <button
+                    onClick={() => {
+                      setSelectedNews(null);
+                      onBuyClick();
+                    }}
+                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition-all cursor-pointer"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    <span>Get Your Copy of Climbing Toward Healing</span>
+                  </button>
                 </div>
               </div>
             ) : (
