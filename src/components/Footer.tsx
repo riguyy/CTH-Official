@@ -7,6 +7,7 @@ interface FooterProps {
   onBuyClick: () => void;
   onReadPreviewClick: () => void;
   onOpenTimelineClick?: () => void;
+  onOpenGameClick?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -14,6 +15,7 @@ export const Footer: React.FC<FooterProps> = ({
   onBuyClick,
   onReadPreviewClick,
   onOpenTimelineClick,
+  onOpenGameClick,
 }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -126,8 +128,8 @@ export const Footer: React.FC<FooterProps> = ({
               </a>
             </div>
 
-            {/* Book Updates Timeline Button */}
-            <div className="pt-2">
+            {/* Action Buttons: Timeline & Interactive Game */}
+            <div className="pt-2 flex flex-wrap items-center gap-2.5">
               <button
                 onClick={onOpenTimelineClick}
                 className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 hover:scale-105 transition-all border border-white cursor-pointer"
@@ -135,6 +137,15 @@ export const Footer: React.FC<FooterProps> = ({
                 <Sparkles className="w-3.5 h-3.5 text-slate-950" />
                 <span>Book Updates Timeline</span>
               </button>
+
+              {onOpenGameClick && (
+                <button
+                  onClick={onOpenGameClick}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-amber-300 border border-amber-400/30 hover:border-amber-400 text-xs font-bold transition-all hover:scale-105 cursor-pointer"
+                >
+                  <span>⛰️ Play Mini-Game</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -144,6 +155,14 @@ export const Footer: React.FC<FooterProps> = ({
               Quick Links
             </p>
             <ul className="space-y-2 text-xs text-slate-400">
+              <li>
+                <button 
+                  onClick={onOpenGameClick} 
+                  className="hover:text-amber-300 transition-colors font-semibold text-amber-300 inline-flex items-center gap-1.5 cursor-pointer text-left"
+                >
+                  <span>🎮 Interactive Journey Game</span>
+                </button>
+              </li>
               <li><a href="#about-book" className="hover:text-amber-300 transition-colors">About the Book</a></li>
               <li><a href="#why-written" className="hover:text-amber-300 transition-colors">Why It Was Written</a></li>
               <li><a href="#about-author" className="hover:text-amber-300 transition-colors">About Jacqueline Eye</a></li>

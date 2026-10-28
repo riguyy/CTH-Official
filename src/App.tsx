@@ -17,6 +17,8 @@ import { ExcerptModal } from './components/ExcerptModal';
 import { MountainClimbExperience } from './components/MountainClimbExperience';
 import { TheMessageExperience } from './components/TheMessageExperience';
 import { BookUpdatesTimelineModal } from './components/BookUpdatesTimelineModal';
+import { JourneyGameSection } from './components/JourneyGameSection';
+import { JourneyGameModal } from './components/JourneyGameModal';
 import { ambienceEngine } from './utils/audioAmbience';
 
 export function App() {
@@ -25,6 +27,7 @@ export function App() {
   const [isMountainClimbOpen, setIsMountainClimbOpen] = useState(false);
   const [isTheMessageOpen, setIsTheMessageOpen] = useState(false);
   const [isTimelineOpen, setIsTimelineOpen] = useState(false);
+  const [isGameOpen, setIsGameOpen] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
 
   // Scroll to "Where to Buy" or open Amazon
@@ -112,7 +115,13 @@ export function App() {
           onOpenTimelineClick={() => setIsTimelineOpen(true)}
         />
 
-        {/* Section 9: Our Team */}
+        {/* Section 10: Interactive Mini-Game Section Towards the Bottom */}
+        <JourneyGameSection
+          book={bookDetails}
+          onOpenGame={() => setIsGameOpen(true)}
+        />
+
+        {/* Section 11: Our Team & Inquiries */}
         <OurTeamSection book={bookDetails} />
       </main>
 
@@ -122,6 +131,20 @@ export function App() {
         onBuyClick={handleBuyClick}
         onReadPreviewClick={handleReadPreviewClick}
         onOpenTimelineClick={() => setIsTimelineOpen(true)}
+        onOpenGameClick={() => setIsGameOpen(true)}
+      />
+
+      {/* The Journey Toward Healing Mini-Game Modal */}
+      <JourneyGameModal
+        isOpen={isGameOpen}
+        onClose={() => setIsGameOpen(false)}
+        book={bookDetails}
+        onExploreBookClick={() => {
+          const aboutBook = document.getElementById('about-book');
+          if (aboutBook) {
+            aboutBook.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
       />
 
       {/* Sample Excerpt Modal */}
