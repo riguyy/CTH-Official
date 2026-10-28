@@ -47,7 +47,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span><strong>Published:</strong> August 10, 2026</span>
               <span className="text-amber-400/40">•</span>
               <Clock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span><strong>Last Updated:</strong> August 16th, 2026</span>
+              <span><strong>Last Updated:</strong> October 26th, 2026</span>
             </div>
 
             {/* Times Square Billboard Announcement Badge */}
@@ -105,8 +105,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Call to Action Buttons */}
           <div className="flex flex-col items-center lg:items-start gap-4 pt-4 w-full">
-            {/* Top Row: Buy on Amazon & Chapter 1 Preview */}
-            <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto">
+            {/* Top Row: Buy on Amazon, Chapter 1 Preview, Watch Trailer */}
+            <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3.5 w-full sm:w-auto">
               <button
                 id="hero-buy-button"
                 onClick={onBuyClick}
@@ -174,7 +174,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* Right Column: Prominent 3D Book Cover Artwork */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center">
-          <div className="relative">
+          <div className="relative flex flex-col items-center">
             <BookCover3D
               coverUrl={book.coverImage}
               title={book.title}

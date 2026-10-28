@@ -128,10 +128,10 @@ export const AboutBookSection: React.FC<AboutBookSectionProps> = ({
             </div>
 
             {/* Read Sample CTA */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3.5 pt-4">
               <button
                 onClick={onReadPreviewClick}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-100 font-sans-body text-xs font-bold tracking-wide shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-100 font-sans-body text-xs font-bold tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <BookOpen className="w-4 h-4 text-amber-400" />
                 <span>Read Free Excerpt</span>
@@ -139,7 +139,7 @@ export const AboutBookSection: React.FC<AboutBookSectionProps> = ({
 
               <button
                 onClick={onBuyClick}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-sans-body text-xs font-bold tracking-wide shadow-md shadow-amber-600/20 transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-sans-body text-xs font-bold tracking-wide shadow-md shadow-amber-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Buy On Amazon</span>
                 <ArrowRight className="w-4 h-4" />

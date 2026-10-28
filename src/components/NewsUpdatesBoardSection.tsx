@@ -30,6 +30,42 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
 
   const newsItems: NewsItem[] = [
     {
+      id: 'were-back-billboard',
+      title: '✨ WE’RE BACK — AND CLIMBING HIGHER THAN EVER! ✨',
+      date: 'October 26, 2026',
+      badge: 'Times Square Billboard',
+      isFeatured: true,
+      summary: 'We know it’s been a little while since we’ve posted… but Climbing Toward Healing is being featured on a billboard in New York City TODAY! 🗽 Plus, we are back to daily posts.',
+      fullText: `✨ WE’RE BACK — AND CLIMBING HIGHER THAN EVER! ✨
+
+We know it’s been a little while since we’ve posted… but Climbing Toward Healing has still been growing behind the scenes. ❤️And now, we’re so excited to share something BIG:
+
+🗽 Climbing Toward Healing is being featured on a billboard in New York City TODAY! 🗽
+
+From a book that was first started in 2020 to now being seen in the heart of New York City, this journey continues to be about healing, strength, resilience, and finding light.
+
+We may have been quiet for a while, but the journey never stopped. The book is still growing, the message is still reaching people, and there is so much more ahead.
+
+🎥 LOOKING TO WATCH THE AD?
+The first showing will be at 7:08, and the ad will continue playing throughout every hour of the day. Click the link below or head over to the Climbing Toward Healing website to watch it once the video is added. (You can only watch the ad when it is on the billboard. The ad will be played on the website by clicking the play button. — It will be added to the website later today. Sorry for any inconvenience.)
+
+🔗 https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/times-square.html
+OR visit climbingtowardhealing.org  
+
+📅 AND WE’RE BACK TO DAILY POSTS!
+After taking some time away, we’re excited to start sharing behind-the-scenes content, reminders, updates about Climbing Toward Healing, and more with you every day again.
+
+Thank you to everyone who has continued to support Climbing Toward Healing along the way. We’re incredibly excited for what’s ahead.
+
+This is only another step in the journey. ❤️
+
+Healing is possible. You are not alone.
+
+#ClimbingTowardHealing #TheJourneyContinues #NewYorkCity #NYC #Billboard #Healing #Strength #Resilience #FindingLight`,
+      ctaText: 'Read Billboard Update & Live Links',
+      icon: Megaphone,
+    },
+    {
       id: 'website-live',
       title: '🎉 The Official Website Is Live',
       date: 'August 11, 2026',
@@ -543,6 +579,97 @@ export const NewsUpdatesBoardSection: React.FC<NewsUpdatesBoardSectionProps> = (
                   <p className="text-[11px]">
                     <strong>Think you know?</strong> Find a hint on the official website and make your guess!
                   </p>
+                </div>
+              </div>
+            ) : selectedNews.id === 'were-back-billboard' ? (
+              <div className="space-y-6">
+                <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border-2 border-amber-400/50 space-y-5 shadow-2xl text-slate-100">
+                  <div className="flex items-center gap-2 text-amber-400 font-serif text-xs font-bold uppercase tracking-widest pb-3 border-b border-slate-800">
+                    <Megaphone className="w-4 h-4 text-amber-400 animate-pulse" />
+                    <span>Special Announcement — October 26, 2026</span>
+                  </div>
+
+                  <p className="text-sm sm:text-base font-sans-body leading-relaxed text-slate-200">
+                    We know it’s been a little while since we’ve posted… but <strong className="text-amber-200">Climbing Toward Healing</strong> has still been growing behind the scenes. ❤️ And now, we’re so excited to share something BIG:
+                  </p>
+
+                  <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-amber-400/15 to-amber-500/20 border-2 border-amber-400/50 text-center space-y-1 shadow-lg shadow-amber-500/10">
+                    <p className="font-serif-title text-lg sm:text-xl font-bold text-amber-300">
+                      🗽 Climbing Toward Healing is being featured on a billboard in New York City TODAY! 🗽
+                    </p>
+                  </div>
+
+                  <p className="text-sm sm:text-base font-sans-body leading-relaxed text-slate-200">
+                    From a book that was first started in 2020 to now being seen in the heart of New York City, this journey continues to be about healing, strength, resilience, and finding light.
+                  </p>
+
+                  <p className="text-sm sm:text-base font-sans-body leading-relaxed text-slate-200">
+                    We may have been quiet for a while, but the journey never stopped. The book is still growing, the message is still reaching people, and there is so much more ahead.
+                  </p>
+
+                  {/* Looking to Watch the Ad */}
+                  <div className="p-5 rounded-xl bg-slate-900/95 border border-amber-400/30 space-y-3">
+                    <div className="flex items-center gap-2 text-amber-300 font-serif text-xs font-bold uppercase tracking-wider">
+                      <Video className="w-4 h-4 text-amber-400" />
+                      <span>🎥 LOOKING TO WATCH THE AD?</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-300 font-sans-body leading-relaxed">
+                      The first showing will be at 7:08, and the ad will continue playing throughout every hour of the day. Click the link below or head over to the Climbing Toward Healing website to watch it once the video is added. (You can only watch the ad when it is on the billboard. The ad will be played on the website by clicking the play button. — It will be added to the website later today. Sorry for any inconvenience.)
+                    </p>
+
+                    <div className="pt-2 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+                      <a
+                        href="https://www.skylinewebcams.com/en/webcam/united-states/new-york/new-york/times-square.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 transition-all cursor-pointer"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>Watch Live Times Square Webcam</span>
+                      </a>
+                      <a
+                        href="https://climbingtowardhealing.org"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs border border-amber-400/30 transition-all"
+                      >
+                        <span>climbingtowardhealing.org</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Daily Posts */}
+                  <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+                    <div className="flex items-center gap-2 text-amber-300 font-serif text-xs font-bold uppercase tracking-wider">
+                      <Calendar className="w-4 h-4 text-amber-400" />
+                      <span>📅 AND WE’RE BACK TO DAILY POSTS!</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-300 font-sans-body leading-relaxed">
+                      After taking some time away, we’re excited to start sharing behind-the-scenes content, reminders, updates about Climbing Toward Healing, and more with you every day again.
+                    </p>
+                  </div>
+
+                  <p className="text-sm font-sans-body text-slate-200">
+                    Thank you to everyone who has continued to support Climbing Toward Healing along the way. We’re incredibly excited for what’s ahead.
+                  </p>
+
+                  <div className="pt-2 border-t border-slate-800 flex flex-col gap-1.5">
+                    <p className="text-sm font-serif-title italic font-medium text-amber-200">
+                      This is only another step in the journey. ❤️
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-amber-300">
+                      Healing is possible. You are not alone.
+                    </p>
+                  </div>
+
+                  {/* Hashtags */}
+                  <div className="pt-3 border-t border-slate-800/80 flex flex-wrap gap-1.5 text-[11px] text-amber-400/90 font-mono">
+                    {['#ClimbingTowardHealing', '#TheJourneyContinues', '#NewYorkCity', '#NYC', '#Billboard', '#Healing', '#Strength', '#Resilience', '#FindingLight'].map((tag) => (
+                      <span key={tag} className="px-2.5 py-0.5 rounded-md bg-amber-400/10 border border-amber-400/20 text-amber-300">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ) : selectedNews.id === 'sunday-reminder' ? (
